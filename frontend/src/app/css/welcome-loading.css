@@ -1,5 +1,105 @@
+.hok-welcome-screen {
+  --hok-login-duration: 1500ms;
+  --hok-login-cover: color-mix(in srgb, var(--background) 88%, var(--primary));
+  --hok-login-light: color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+.dark .hok-welcome-screen {
+  --hok-login-light: color-mix(in srgb, var(--primary) 32%, transparent);
+}
+
+.hok-welcome-screen[data-state="login"] {
+  animation: hok-welcome-login var(--hok-login-duration) linear both;
+}
+
+.hok-welcome-screen[data-state="waiting"],
+.hok-welcome-screen[data-state="revealing"] {
+  background-color: var(--hok-login-cover);
+}
+
+.hok-welcome-screen[data-state="revealing"] {
+  pointer-events: none;
+  animation: hok-welcome-uncover 180ms ease-out both;
+}
+
+.hok-welcome-screen[data-state="revealing"]
+  ~ .hok-page__main:not(:has(.hok-welcome-arrival)),
+.hok-welcome-arrival {
+  animation: hok-welcome-page-enter 240ms ease-out both;
+}
+
+.hok-login-portal,
+.hok-login-streaks,
+.hok-login-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hok-login-portal::before,
+.hok-login-portal::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(54vw, 28rem);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow:
+    0 0 28px var(--hok-login-light),
+    inset 0 0 28px var(--hok-login-light);
+  animation: hok-login-portal var(--hok-login-duration)
+    cubic-bezier(0.55, 0, 0.8, 0.45) both;
+}
+
+.hok-login-portal::after {
+  width: min(72vw, 38rem);
+  border-inline-color: transparent;
+  animation-name: hok-login-outer-ring;
+}
+
+.hok-login-streaks {
+  background: repeating-conic-gradient(
+    from 8deg at 50% 50%,
+    transparent 0deg 18deg,
+    var(--hok-login-light) 18.2deg 18.8deg,
+    transparent 19deg 30deg
+  );
+  mask-image: radial-gradient(
+    circle,
+    transparent 12%,
+    black 38%,
+    transparent 72%
+  );
+  opacity: 0;
+  animation: hok-login-streaks var(--hok-login-duration) ease-in both;
+}
+
+.hok-login-flash {
+  background: radial-gradient(circle, var(--hok-login-light), transparent 70%);
+  opacity: 0;
+  animation: hok-login-flash var(--hok-login-duration) ease-out both;
+}
+
+.hok-loading-progress {
+  position: relative;
+}
+
+.hok-loading-progress::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--primary);
+  transform-origin: left;
+  animation: hok-loading-complete var(--hok-login-duration) ease-in-out both;
+}
+
 .hok-loading-content {
-  animation: hok-loading-reveal 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: hok-login-brand var(--hok-login-duration) ease-out both;
 }
 
 .hok-loading-orbit {
@@ -20,10 +120,115 @@
   animation: hok-loading-breathe 2.8s ease-in-out infinite;
 }
 
-@keyframes hok-loading-reveal {
+@keyframes hok-welcome-login {
+  0%,
+  60% {
+    background-color: var(--background);
+  }
+  100% {
+    background-color: var(--hok-login-cover);
+  }
+}
+
+@keyframes hok-login-portal {
+  0%,
+  15% {
+    opacity: 0;
+    transform: scale(0.65);
+  }
+  35% {
+    opacity: 0.55;
+  }
+  70% {
+    opacity: 0.45;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(4);
+  }
+}
+
+@keyframes hok-login-outer-ring {
+  0%,
+  15% {
+    opacity: 0;
+    transform: scale(0.7) rotate(-25deg);
+  }
+  35% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3.2) rotate(65deg);
+  }
+}
+
+@keyframes hok-login-streaks {
+  0%,
+  30% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  65% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+@keyframes hok-login-flash {
+  0%,
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes hok-login-brand {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  25%,
+  55% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0.55;
+    transform: translateY(0) scale(1.035);
+  }
+}
+
+@keyframes hok-loading-complete {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes hok-welcome-uncover {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes hok-welcome-page-enter {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -57,12 +262,26 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hok-welcome-screen[data-state="login"],
+  .hok-welcome-screen[data-state="revealing"],
+  .hok-welcome-screen[data-state="revealing"]
+    ~ .hok-page__main:not(:has(.hok-welcome-arrival)),
+  .hok-welcome-arrival,
+  .hok-login-portal::before,
+  .hok-login-portal::after,
+  .hok-login-streaks,
+  .hok-login-flash,
+  .hok-loading-progress::after,
   .hok-loading-content,
   .hok-loading-orbit,
   .hok-loading-beam,
   .hok-loading-glow,
   .hok-loading-dot {
     animation: none;
+  }
+
+  .hok-welcome-screen[data-state="revealing"] {
+    opacity: 0;
   }
 
   .hok-loading-beam {

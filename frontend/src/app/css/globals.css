@@ -1366,16 +1366,24 @@ html.light .hok-background__particle:nth-child(even) {
 
 /* ===== FLOATING SUPPORT ===== */
 
-.hok-floating-support {
+.hok-floating-actions {
   position: fixed;
-  top: 75%;
+  top: 50%;
   right: max(16px, env(safe-area-inset-right));
   z-index: 45;
 
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   width: 150px;
   transform: translateY(-50%);
+}
 
+.hok-floating-support {
+  display: block;
+  flex-shrink: 0;
+  width: 100%;
   border-radius: 16px;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
@@ -1413,7 +1421,7 @@ html.light .hok-background__particle:nth-child(even) {
 }
 
 @media (max-width: 640px) {
-  .hok-floating-support {
+  .hok-floating-actions {
     right: max(8px, env(safe-area-inset-right));
     width: 76px;
   }
@@ -1422,6 +1430,14 @@ html.light .hok-background__particle:nth-child(even) {
 @media (prefers-reduced-motion: reduce) {
   .hok-floating-support__image {
     animation: none;
+  }
+}
+
+@media (max-height: 600px) {
+  .hok-floating-actions {
+    top: auto;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    transform: none;
   }
 }
 

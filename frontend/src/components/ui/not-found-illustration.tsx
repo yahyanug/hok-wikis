@@ -16,6 +16,7 @@ export function NotFoundIllustration({
 }: NotFoundIllustrationProps) {
   return (
     <Image
+      loading="eager"
       src={doliaNotFound}
       alt={alt}
       sizes={sizes}

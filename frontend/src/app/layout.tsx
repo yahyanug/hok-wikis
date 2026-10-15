@@ -14,6 +14,7 @@ import { AppFooter } from "@/components/layout/app-footer";
 import { AnimatedBackground } from "@/components/layout/animated-background";
 import { ThemeProvider } from "@/components/layout/theme-provider";
 import { FloatingSupport } from "@/components/layout/floating-support";
+import { WelcomeTransition } from "@/components/layout/welcome-transition";
 
 const playfairDisplayHeading = Playfair_Display({
   subsets: ["latin"],
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           disableTransitionOnChange
         >
           <AnimatedBackground />
+          <WelcomeTransition />
 
           <TooltipProvider>
             <AppHeader />

@@ -20,7 +20,10 @@ export function AppFooter() {
           </Link>
 
           <p className="hok-footer__tagline text-center">
-            <span>Sword Art Online x Flowborn - Inspired design style</span>
+            <span>
+              Sword Art Online x Final Fantasy x Flowborn - Inspired design
+              style
+            </span>
           </p>
         </div>
 
