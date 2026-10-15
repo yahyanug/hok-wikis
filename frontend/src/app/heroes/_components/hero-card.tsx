@@ -30,7 +30,7 @@ export function HeroCard({ hero }: HeroCardProps) {
                 src={hero.image}
                 alt=""
                 fill
-                sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, (max-width: 1399px) 25vw, 17vw"
+                sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 17vw"
                 className="object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
                 style={{
                   objectPosition: hero.imagePosition ?? "center",

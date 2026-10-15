@@ -1,25 +1,33 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import Image from "next/image";
+
 import { ThemeToggle } from "./theme-toggle";
 
-const brand = {
-  label: "HOK Wiki",
-  href: "/dashboard",
-};
-
-const navigationItems = [
-  { label: "Matchups", href: "/matchups" },
+const mainItems = [
   { label: "Heroes", href: "/heroes" },
+  { label: "Matchups", href: "/matchups" },
+];
+
+const resourceItems = [
+  { label: "Items", href: "/items" },
+  { label: "Spells", href: "/spells" },
+  { label: "Arcana", href: "/arcana" },
   { label: "Guides", href: "/guides" },
+];
+
+const additionalItems = [
   { label: "News", href: "/news" },
   { label: "About", href: "/about" },
 ];
@@ -27,10 +35,34 @@ const navigationItems = [
 export function AppHeader() {
   const pathname = usePathname();
 
+  function isActive(href: string) {
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
+
+  const isResourceActive = resourceItems.some((item) => isActive(item.href));
+
+  function renderLink(item: { label: string; href: string }) {
+    const active = isActive(item.href);
+
+    return (
+      <NavigationMenuItem key={item.href}>
+        <NavigationMenuLink
+          asChild
+          active={active}
+          className="hok-header__link"
+        >
+          <Link href={item.href} aria-current={active ? "page" : undefined}>
+            {item.label}
+          </Link>
+        </NavigationMenuLink>
+      </NavigationMenuItem>
+    );
+  }
+
   return (
     <header className="hok-header">
       <div className="hok-header__inner">
-        <Link href={brand.href} className="hok-header__brand">
+        <Link href="/dashboard" className="hok-header__brand">
           <Image
             src="/images/hok-logo.png"
             alt=""
@@ -38,7 +70,8 @@ export function AppHeader() {
             height={44}
             className="hok-header__logo"
           />
-          <span>{brand.label}</span>
+
+          <span>HOK Wiki</span>
         </Link>
 
         <NavigationMenu
@@ -47,27 +80,46 @@ export function AppHeader() {
           aria-label="Navigasi utama"
         >
           <NavigationMenuList className="hok-header__list">
-            {navigationItems.map((item) => {
-              const isActive =
-                pathname === item.href || pathname.startsWith(`${item.href}/`);
+            {mainItems.map(renderLink)}
 
-              return (
-                <NavigationMenuItem key={item.href}>
-                  <NavigationMenuLink
-                    asChild
-                    active={isActive}
-                    className="hok-header__link"
-                  >
-                    <Link
-                      href={item.href}
-                      aria-current={isActive ? "page" : undefined}
-                    >
-                      {item.label}
-                    </Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              );
-            })}
+            <NavigationMenuItem className="hok-header__resource-item">
+              <NavigationMenuTrigger
+                className="hok-header__link hok-header__resource-trigger"
+                data-active={isResourceActive ? "true" : undefined}
+              >
+                Game Resources
+              </NavigationMenuTrigger>
+
+              <NavigationMenuContent className="hok-header__resource-content">
+                <ul
+                  className="hok-header__resource-list"
+                  aria-label="Game Resources"
+                >
+                  {resourceItems.map((item) => {
+                    const active = isActive(item.href);
+
+                    return (
+                      <li key={item.href}>
+                        <NavigationMenuLink
+                          asChild
+                          active={active}
+                          className="hok-header__resource-link"
+                        >
+                          <Link
+                            href={item.href}
+                            aria-current={active ? "page" : undefined}
+                          >
+                            {item.label}
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            {additionalItems.map(renderLink)}
           </NavigationMenuList>
         </NavigationMenu>
 

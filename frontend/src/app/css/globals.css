@@ -1421,3 +1421,42 @@ html.light .hok-background__artwork {
     animation: none;
   }
 }
+
+/* ===== COMPACT GAME RESOURCES DROPDOWN ===== */
+
+.hok-header .hok-header__resource-content {
+  width: 190px;
+  padding: 6px;
+}
+
+.hok-header__resource-list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hok-header .hok-header__resource-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+
+  min-height: 42px;
+  padding: 10px 14px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: left;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .hok-header .hok-header__resource-content {
+    width: auto;
+  }
+}

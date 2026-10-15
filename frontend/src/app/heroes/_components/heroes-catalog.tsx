@@ -107,10 +107,8 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
 
   return (
     <div className="space-y-7">
-      <Card
-        className="gap-0 rounded-xl border border-border bg-card/95 py-0 shadow-lg backdrop-blur-md"
-      >
-        <CardContent className="space-y-5 p-4 sm:p-5">
+      <Card className="w-full max-w-full gap-0 rounded-xl border border-border bg-card/95 py-0 shadow-lg backdrop-blur-md">
+        <CardContent className="grid gap-4 p-3 sm:p-4 min-[1400px]:grid-cols-[minmax(0,6fr)_minmax(0,7fr)]">
           {/* Lane filter */}
           <div className="min-w-0">
             <p
@@ -152,56 +150,63 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
             </ToggleGroup>
           </div>
 
-          <div
-            className="flex flex-col gap-5 border-t border-border pt-5 lg:flex-row lg:items-end lg:justify-between"
-          >
-            {/* Role filter */}
-            <div className="min-w-0">
-              <p
-                id="heroes-role-label"
-                className="mb-3 text-[11px] font-semibold tracking-widest uppercase"
-              >
-                Pilih Role
-              </p>
+          {/* Role filter */}
+          <div className="min-w-0 border-t border-border pt-4 min-[1400px]:border-t-0 min-[1400px]:border-l min-[1400px]:pt-0 min-[1400px]:pl-4">
+            <p
+              id="heroes-role-label"
+              className="mb-3 text-[11px] font-semibold tracking-widest uppercase"
+            >
+              Pilih Role
+            </p>
 
-              <ToggleGroup
-                type="single"
-                variant="outline"
-                value={selectedRole}
-                onValueChange={changeRole}
-                aria-labelledby="heroes-role-label"
-                className="w-full flex-wrap justify-start gap-2"
-              >
-                {roleOptions.map((option) => (
-                  <ToggleGroupItem
-                    key={option.value}
-                    value={option.value}
-                    className="h-20 w-20 min-w-20 flex-col gap-2 rounded-lg border border-border bg-background/40 px-2 py-3 text-xs tracking-normal text-muted-foreground hover:bg-accent hover:text-accent-foreground data-[state=on]:border-primary data-[state=on]:bg-accent data-[state=on]:text-accent-foreground data-[state=on]:ring-1 data-[state=on]:ring-primary/30"
-                  >
-                    {option.value === "ALL" ? (
-                      <LayoutGrid aria-hidden="true" className="size-7!" />
-                    ) : (
-                      <Image
-                        src={roleImages[option.value]}
-                        alt=""
-                        width={32}
-                        height={32}
-                        className="size-8 shrink-0 object-contain brightness-0 dark:brightness-100"
-                      />
-                    )}
+            <ToggleGroup
+              type="single"
+              variant="outline"
+              value={selectedRole}
+              onValueChange={changeRole}
+              aria-labelledby="heroes-role-label"
+              className="w-full flex-wrap justify-start gap-2"
+            >
+              {roleOptions.map((option) => (
+                <ToggleGroupItem
+                  key={option.value}
+                  value={option.value}
+                  className="h-20 w-20 min-w-20 flex-col gap-2 rounded-lg border border-border bg-background/40 px-2 py-3 text-xs tracking-normal text-muted-foreground hover:bg-accent hover:text-accent-foreground data-[state=on]:border-primary data-[state=on]:bg-accent data-[state=on]:text-accent-foreground data-[state=on]:ring-1 data-[state=on]:ring-primary/30"
+                >
+                  {option.value === "ALL" ? (
+                    <LayoutGrid aria-hidden="true" className="size-7!" />
+                  ) : (
+                    <Image
+                      src={roleImages[option.value]}
+                      alt=""
+                      width={32}
+                      height={32}
+                      className="size-8 shrink-0 object-contain brightness-0 dark:brightness-100"
+                    />
+                  )}
 
-                    <span>{option.label}</span>
-                  </ToggleGroupItem>
-                ))}
-              </ToggleGroup>
-            </div>
+                  <span>{option.label}</span>
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Hero list */}
+      <section aria-labelledby="heroes-results-title">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <h2
+              id="heroes-results-title"
+              className="font-serif text-2xl font-semibold"
+            >
+              Semua Hero
+            </h2>
 
             {/* Sorting */}
-            <div className="shrink-0">
-              <p
-                id="heroes-sort-label"
-                className="mb-3 text-[11px] font-semibold tracking-widest text-muted-foreground uppercase"
-              >
+            <div className="flex items-center">
+              <p id="heroes-sort-label" className="sr-only">
                 Urutkan Nama
               </p>
 
@@ -216,7 +221,7 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
                 <ToggleGroupItem
                   value="ASC"
                   aria-label="Nama A sampai Z"
-                  className="min-h-10 rounded-md border px-4 text-xs data-[state=on]:border-primary data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+                  className="h-8 min-h-8 rounded-md border px-3 text-xs data-[state=on]:border-primary data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
                 >
                   A–Z
                 </ToggleGroupItem>
@@ -224,28 +229,12 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
                 <ToggleGroupItem
                   value="DESC"
                   aria-label="Nama Z sampai A"
-                  className="min-h-10 rounded-md border px-4 text-xs data-[state=on]:border-primary data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
+                  className="h-8 min-h-8 rounded-md border px-3 text-xs data-[state=on]:border-primary data-[state=on]:bg-accent data-[state=on]:text-accent-foreground"
                 >
                   Z–A
                 </ToggleGroupItem>
               </ToggleGroup>
             </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Hero list */}
-      <section aria-labelledby="heroes-results-title">
-        <div
-          className="mb-4 flex flex-wrap items-center justify-between gap-3"
-        >
-          <div className="flex flex-wrap items-center gap-3">
-            <h2
-              id="heroes-results-title"
-              className="font-serif text-2xl font-semibold"
-            >
-              Semua Hero
-            </h2>
 
             <p role="status" aria-live="polite">
               <Badge
@@ -272,17 +261,13 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
         </div>
 
         {visibleHeroes.length > 0 ? (
-          <div
-            className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 min-[1400px]:grid-cols-6"
-          >
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
             {visibleHeroes.map((hero) => (
               <HeroCard key={hero.slug} hero={hero} />
             ))}
           </div>
         ) : (
-          <Empty
-            className="min-h-64 rounded-xl border border-border bg-card/95"
-          >
+          <Empty className="min-h-64 rounded-xl border border-border bg-card/95">
             <EmptyHeader>
               <EmptyMedia variant="icon" className="rounded-lg">
                 <Users aria-hidden="true" />
