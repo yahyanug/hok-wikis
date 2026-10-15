@@ -63,13 +63,15 @@ export function AppHeader() {
     <header className="hok-header">
       <div className="hok-header__inner">
         <Link href="/dashboard" className="hok-header__brand">
-          <Image
-            src="/images/hok-logo.png"
-            alt=""
-            width={44}
-            height={44}
-            className="hok-header__logo"
-          />
+          <span className="hok-header__logo-mark" aria-hidden="true">
+            <Image
+              src="/images/hok-logo.png"
+              alt=""
+              width={44}
+              height={44}
+              className="hok-header__logo"
+            />
+          </span>
 
           <span>HOK Wiki</span>
         </Link>

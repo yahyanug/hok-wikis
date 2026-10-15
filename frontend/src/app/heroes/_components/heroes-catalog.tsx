@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { LayoutGrid, RotateCcw, Users } from "lucide-react";
+import { LayoutGrid, RotateCcw } from "lucide-react";
 
 import type { HeroRole } from "@/app/types/hero";
 
@@ -11,12 +11,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Empty,
-  EmptyContent,
-  EmptyDescription,
   EmptyHeader,
-  EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
+import { NotFoundIllustration } from "@/components/ui/not-found-illustration";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 import {
@@ -267,30 +265,20 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
             ))}
           </div>
         ) : (
-          <Empty className="min-h-64 rounded-xl border border-border bg-card/95">
-            <EmptyHeader>
-              <EmptyMedia variant="icon" className="rounded-lg">
-                <Users aria-hidden="true" />
-              </EmptyMedia>
-
-              <EmptyTitle className="tracking-normal normal-case">
+          <Empty className="min-h-64 rounded-xl border border-border bg-card/95 px-6 py-8 sm:p-10">
+            <EmptyHeader className="w-full">
+              <NotFoundIllustration
+                alt=""
+                sizes="(max-width: 639px) 256px, 288px"
+                className="max-w-64 sm:max-w-72"
+              />
+              <EmptyTitle className="sr-only">
                 Hero tidak ditemukan
               </EmptyTitle>
-
-              <EmptyDescription>
-                Belum ada hero yang cocok dengan kombinasi role dan lane ini.
-              </EmptyDescription>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                Halaman yang kamu cari tidak tersedia
+              </p>
             </EmptyHeader>
-
-            <EmptyContent>
-              <Button
-                type="button"
-                onClick={resetFilters}
-                className="rounded-md tracking-normal normal-case"
-              >
-                Tampilkan Semua Hero
-              </Button>
-            </EmptyContent>
           </Empty>
         )}
       </section>

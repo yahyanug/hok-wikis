@@ -20,10 +20,7 @@ export function AppFooter() {
           </Link>
 
           <p className="hok-footer__tagline text-center">
-            <span>
-              © 2026 HOK Wiki <span aria-hidden="true">•</span> Sword Art Online
-              x Flowborn inspired theme style
-            </span>
+            <span>Sword Art Online x Flowborn - Inspired design style</span>
           </p>
         </div>
 
@@ -39,7 +36,7 @@ export function AppFooter() {
               their respective owners.
             </span>
             <br />
-            <span>Independent Fan-Made Project 🩵</span>
+            <span>© 2026 HOK Wiki • Independent Fan-Made Project 🩵</span>
           </p>
           <FooterReleaseInfo />
         </div>

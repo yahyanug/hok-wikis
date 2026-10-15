@@ -156,11 +156,11 @@
 
   --hok-particle-color: #276da8;
   --hok-particle-shadow:
-    0 0 4px rgb(255 255 255 / 90%), 0 0 10px rgb(39 109 168 / 55%);
+    0 0 3px rgb(255 255 255 / 40%), 0 0 5px rgb(39 109 168 / 40%);
 
   --hok-particle-alt-color: #8755b0;
   --hok-particle-alt-shadow:
-    0 0 4px rgb(255 255 255 / 85%), 0 0 10px rgb(135 85 176 / 45%);
+    0 0 3px rgb(255 255 255 / 35%), 0 0 5px rgb(135 85 176 / 35%);
 
   /* Footer */
 
@@ -289,10 +289,10 @@
   --hok-mist-pink: rgb(218 126 181 / 35%);
 
   --hok-particle-color: #b9eaff;
-  --hok-particle-shadow: 0 0 8px rgb(120 205 255 / 65%);
+  --hok-particle-shadow: 0 0 6px rgb(120 205 255 / 50%);
 
   --hok-particle-alt-color: #ffd1e9;
-  --hok-particle-alt-shadow: 0 0 8px rgb(255 155 210 / 60%);
+  --hok-particle-alt-shadow: 0 0 6px rgb(255 155 210 / 45%);
 
   /* Footer */
 
@@ -361,6 +361,8 @@ body.hok-page {
 }
 
 .hok-page__main {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   min-width: 0;
   background: transparent;
@@ -437,13 +439,16 @@ body.hok-page {
   animation: hok-mist-drift 18s ease-in-out -12s infinite alternate-reverse;
 }
 
-/* Partikel berada di atas overlay dan kabut */
+/* Partikel melintas di atas card; header dan popup tetap di atasnya. */
 
 .hok-background__particles {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 3;
+  z-index: 30;
   display: block;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
 }
 
 .hok-background__particle {
@@ -456,7 +461,7 @@ body.hok-page {
   box-shadow: var(--hok-particle-shadow);
 
   animation-name: hok-particle-float;
-  animation-duration: calc(var(--particle-duration, 22s) / 2);
+  animation-duration: var(--particle-duration, 22s);
   animation-timing-function: linear;
   animation-delay: var(--particle-delay, 0s);
   animation-iteration-count: infinite;
@@ -498,15 +503,15 @@ body.hok-page {
   }
 
   20% {
-    opacity: 0.85;
+    opacity: 0.65;
   }
 
   75% {
-    opacity: 0.6;
+    opacity: 0.4;
   }
 
   100% {
-    transform: translate3d(70px, -350px, 0) scale(1.3);
+    transform: translate3d(70px, -350px, 0) scale(1.1);
     opacity: 0;
   }
 }
@@ -566,6 +571,46 @@ body.hok-page {
 
 .hok-header__brand:hover {
   color: var(--hok-brand-hover);
+}
+
+.hok-header__logo-mark {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hok-header__logo-mark::before,
+.hok-header__logo-mark::after {
+  content: "";
+  position: absolute;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: hok-header-logo-spin 2.8s linear infinite;
+}
+
+.hok-header__logo-mark::before {
+  inset: -5px;
+  border-color: color-mix(in srgb, var(--primary) 12%, transparent);
+  border-top-color: var(--primary);
+  border-right-color: color-mix(in srgb, var(--primary) 30%, transparent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+.hok-header__logo-mark::after {
+  inset: -1px;
+  border-bottom-color: color-mix(in srgb, var(--primary) 50%, transparent);
+  animation-duration: 4.2s;
+  animation-direction: reverse;
+}
+
+@keyframes hok-header-logo-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .hok-header__logo {
@@ -1041,7 +1086,7 @@ body.hok-page {
     background-position: 62% center;
   }
 
-  .hok-background__particle:nth-child(n + 6) {
+  .hok-background__particle:nth-child(n + 17) {
     display: none;
   }
 
@@ -1119,7 +1164,9 @@ body.hok-page {
 @media (prefers-reduced-motion: reduce) {
   .hok-background__artwork,
   .hok-background__mist,
-  .hok-background__particle {
+  .hok-background__particle,
+  .hok-header__logo-mark::before,
+  .hok-header__logo-mark::after {
     animation: none;
   }
 
@@ -1216,39 +1263,26 @@ html.light .hok-background__mist--pink {
 /* Container partikel */
 
 html.light .hok-background__particles {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-
   display: block;
   visibility: visible;
   opacity: 1;
 }
 
-/*
-  min-width/min-height memperbesar partikel meskipun
-  komponen memberi width/height kecil lewat inline style.
-*/
+/* Partikel kecil dan glow terbatas menjaga tulisan tetap terbaca. */
 
 html.light .hok-background__particle {
   display: block;
   visibility: visible;
 
-  min-width: 5px;
-  min-height: 5px;
-
-  border: 1px solid rgb(240 250 255 / 90%);
+  border: 1px solid rgb(240 250 255 / 40%);
   border-radius: 50%;
 
   background: #1769b0;
 
-  box-shadow:
-    0 0 0 1px rgb(23 105 176 / 35%),
-    0 0 8px rgb(23 105 176 / 80%),
-    0 0 18px rgb(60 145 225 / 55%);
+  box-shadow: var(--hok-particle-shadow);
 
   animation-name: hok-light-particle-float;
-  animation-duration: calc(var(--particle-duration, 22s) / 2);
+  animation-duration: var(--particle-duration, 22s);
   animation-timing-function: linear;
 
   /* Mulai di tengah animasi agar langsung terlihat */
@@ -1257,15 +1291,9 @@ html.light .hok-background__particle {
 }
 
 html.light .hok-background__particle:nth-child(even) {
-  min-width: 6px;
-  min-height: 6px;
-
   background: #8545ae;
 
-  box-shadow:
-    0 0 0 1px rgb(133 69 174 / 35%),
-    0 0 8px rgb(133 69 174 / 75%),
-    0 0 18px rgb(170 100 215 / 50%);
+  box-shadow: var(--hok-particle-alt-shadow);
 }
 
 /* Animasi kabut light mode */
@@ -1291,29 +1319,29 @@ html.light .hok-background__particle:nth-child(even) {
   }
 
   15% {
-    opacity: 1;
+    opacity: 0.4;
   }
 
   70% {
-    opacity: 0.9;
+    opacity: 0.28;
   }
 
   100% {
-    transform: translate3d(70px, -350px, 0) scale(1.2);
+    transform: translate3d(70px, -350px, 0) scale(1.1);
     opacity: 0;
   }
 }
 
-/* Mobile: tetap tampilkan lima partikel */
+/* Mobile: batasi kepadatan partikel pada viewport kecil. */
 
 @media (max-width: 640px) {
-  html.light .hok-background__particle:nth-child(n + 6) {
+  html.light .hok-background__particle:nth-child(n + 17) {
     display: none;
   }
 }
 
 /*
-  Reduce Motion: efek tetap terlihat dalam keadaan diam.
+  Reduce Motion: hentikan animasi dan sembunyikan partikel.
 */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1327,12 +1355,12 @@ html.light .hok-background__particle:nth-child(even) {
   }
 
   html.light .hok-background__particles {
-    display: block;
+    display: none;
   }
 
   html.light .hok-background__particle {
     animation: none;
-    opacity: 0.75;
+    opacity: 0;
   }
 }
 
@@ -1434,14 +1462,6 @@ html.light .hok-background__mist {
   display: block;
   visibility: visible;
   mix-blend-mode: multiply;
-}
-
-/* Partikel di atas gambar dan kabut */
-
-html.light .hok-background__particles {
-  display: block;
-  visibility: visible;
-  opacity: 1;
 }
 
 /* Gerakan background berlaku di kedua tema */
