@@ -3,13 +3,14 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import "./css/welcome-loading.css";
 
 export default function HomePage() {
   const router = useRouter();
 
   useEffect(() => {
     router.prefetch("/dashboard");
-    const timer = window.setTimeout(() => router.replace("/dashboard"), 1500);
+    const timer = window.setTimeout(() => router.replace("/dashboard"), 7000);
     return () => window.clearTimeout(timer);
   }, [router]);
 
@@ -23,10 +24,10 @@ export default function HomePage() {
         className="pointer-events-none absolute inset-0 overflow-hidden"
       >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--hok-header-border),transparent_65%)] opacity-50" />
-        <div className="splash-glow absolute top-1/2 left-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 blur-3xl dark:bg-cyan-400/10" />
+        <div className="hok-loading-glow absolute top-1/2 left-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 blur-3xl dark:bg-cyan-400/10" />
       </div>
 
-      <div className="splash-content relative flex w-full max-w-2xl flex-col items-center text-center">
+      <div className="hok-loading-content relative flex w-full max-w-2xl flex-col items-center text-center">
         <h1
           id="loading-brand"
           className="hok-footer__brand m-0! gap-4! text-[clamp(1.75rem,6vw,3rem)]! sm:gap-6!"
@@ -38,11 +39,11 @@ export default function HomePage() {
             />
             <span
               aria-hidden="true"
-              className="splash-orbit absolute inset-0 rounded-full border border-transparent border-t-cyan-600 border-r-cyan-600/30 dark:border-t-cyan-200 dark:border-r-cyan-200/30"
+              className="hok-loading-orbit absolute inset-0 rounded-full border border-transparent border-t-cyan-600 border-r-cyan-600/30 dark:border-t-cyan-200 dark:border-r-cyan-200/30"
             />
             <span
               aria-hidden="true"
-              className="splash-orbit splash-orbit--reverse absolute inset-2 rounded-full border border-transparent border-b-cyan-600/50 dark:border-b-cyan-200/50"
+              className="hok-loading-orbit hok-loading-orbit-reverse absolute inset-2 rounded-full border border-transparent border-b-cyan-600/50 dark:border-b-cyan-200/50"
             />
             <Image
               src="/images/hok-logo.png"
@@ -65,7 +66,7 @@ export default function HomePage() {
             aria-hidden="true"
             className="h-0.5 w-full overflow-hidden rounded-full bg-cyan-900/10 dark:bg-cyan-100/10"
           >
-            <div className="splash-beam h-full w-2/5 rounded-full bg-linear-to-r from-transparent via-cyan-600 to-transparent dark:via-cyan-200" />
+            <div className="hok-loading-beam h-full w-2/5 rounded-full bg-linear-to-r from-transparent via-cyan-600 to-transparent dark:via-cyan-200" />
           </div>
 
           <p
@@ -74,87 +75,13 @@ export default function HomePage() {
           >
             <span
               aria-hidden="true"
-              className="splash-dot size-1 rounded-full bg-cyan-600 dark:bg-cyan-200"
+              className="hok-loading-dot size-1 rounded-full bg-cyan-600 dark:bg-cyan-200"
             />
             NOW LOADING
             <span className="sr-only">Opening dashboard.</span>
           </p>
         </div>
       </div>
-
-      <style jsx>{`
-        .splash-content {
-          animation: splash-reveal 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        .splash-orbit {
-          animation: splash-orbit 2.8s linear infinite;
-        }
-
-        .splash-orbit--reverse {
-          animation-direction: reverse;
-          animation-duration: 4.2s;
-        }
-
-        .splash-beam {
-          animation: splash-sweep 1.6s ease-in-out infinite;
-        }
-
-        .splash-glow,
-        .splash-dot {
-          animation: splash-breathe 2.8s ease-in-out infinite;
-        }
-
-        @keyframes splash-reveal {
-          from {
-            opacity: 0;
-            transform: translateY(8px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes splash-orbit {
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes splash-sweep {
-          from {
-            transform: translateX(-100%);
-          }
-          to {
-            transform: translateX(250%);
-          }
-        }
-
-        @keyframes splash-breathe {
-          0%,
-          100% {
-            opacity: 0.45;
-          }
-          50% {
-            opacity: 1;
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .splash-content,
-          .splash-orbit,
-          .splash-beam,
-          .splash-glow,
-          .splash-dot {
-            animation: none;
-          }
-
-          .splash-beam {
-            transform: translateX(75%);
-          }
-        }
-      `}</style>
     </section>
   );
 }

@@ -6,7 +6,7 @@ import {
   Playfair_Display,
   Inter,
 } from "next/font/google";
-import "./globals.css";
+import "./css/globals.css";
 import { cn } from "@/lib/utils";
 import { AppHeader } from "@/components/layout/app-header";
 import { TooltipProvider } from "@/components/ui/tooltip";

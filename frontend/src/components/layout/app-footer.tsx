@@ -25,7 +25,7 @@ export function AppFooter() {
           </p>
         </div>
 
-        <p className="hok-footer__info text-center">
+        <p className="hok-footer__info">
           <span>Independent Fan-Made Project</span>
           <br />
           <span>
@@ -37,7 +37,6 @@ export function AppFooter() {
             Artwork is AI-generated or sourced from HOK Camp. • All Artwork
             assets belong to their respective owners.
           </span>
-          <br />
         </p>
       </div>
     </footer>
