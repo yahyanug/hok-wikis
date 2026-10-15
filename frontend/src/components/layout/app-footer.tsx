@@ -26,17 +26,17 @@ export function AppFooter() {
         </div>
 
         <p className="hok-footer__info">
-          <span>Independent Fan-Made Project</span>
-          <br />
           <span>
             Not affiliated with or endorsed by Honor of Kings or TiMi Studio
             Group.
           </span>
           <br />
           <span>
-            Artwork is AI-generated or sourced from HOK Camp. • All Artwork
-            assets belong to their respective owners.
+            Some Artwork sourced from HOK Camp. • All Artwork assets belong to
+            their respective owners.
           </span>
+          <br />
+          <span>Independent Fan-Made Project 🩵</span>
         </p>
       </div>
     </footer>

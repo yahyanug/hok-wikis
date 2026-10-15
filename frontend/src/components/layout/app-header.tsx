@@ -19,6 +19,7 @@ const brand = {
 const navigationItems = [
   { label: "Matchups", href: "/matchups" },
   { label: "Heroes", href: "/heroes" },
+  { label: "Guides", href: "/guides" },
   { label: "News", href: "/news" },
   { label: "About", href: "/about" },
 ];
@@ -69,7 +70,7 @@ export function AppHeader() {
             })}
           </NavigationMenuList>
         </NavigationMenu>
-        
+
         <div className="hok-header__actions">
           <ThemeToggle />
         </div>
