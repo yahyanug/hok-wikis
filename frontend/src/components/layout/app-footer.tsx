@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { FooterReleaseInfo } from "./app-footer-release-info";
+
 export function AppFooter() {
   return (
     <footer className="hok-footer">
@@ -25,19 +27,22 @@ export function AppFooter() {
           </p>
         </div>
 
-        <p className="hok-footer__info">
-          <span>
-            Not affiliated with or endorsed by Honor of Kings or TiMi Studio
-            Group.
-          </span>
-          <br />
-          <span>
-            Some Artwork sourced from HOK Camp. • All Artwork assets belong to
-            their respective owners.
-          </span>
-          <br />
-          <span>Independent Fan-Made Project 🩵</span>
-        </p>
+        <div className="hok-footer__right">
+          <p className="hok-footer__info">
+            <span>
+              Not affiliated with or endorsed by Honor of Kings or TiMi Studio
+              Group.
+            </span>
+            <br />
+            <span>
+              Some Artwork sourced from HOK Camp. • All Artwork assets belong to
+              their respective owners.
+            </span>
+            <br />
+            <span>Independent Fan-Made Project 🩵</span>
+          </p>
+          <FooterReleaseInfo />
+        </div>
       </div>
     </footer>
   );

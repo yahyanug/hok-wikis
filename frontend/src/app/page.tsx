@@ -10,7 +10,7 @@ export default function HomePage() {
 
   useEffect(() => {
     router.prefetch("/dashboard");
-    const timer = window.setTimeout(() => router.replace("/dashboard"), 7000);
+    const timer = window.setTimeout(() => router.replace("/dashboard"), 1000);
     return () => window.clearTimeout(timer);
   }, [router]);
 
