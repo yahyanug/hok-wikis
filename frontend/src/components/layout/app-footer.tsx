@@ -34,9 +34,10 @@ export function AppFooter() {
           </span>
           <br />
           <span>
-            Artwork is AI-generated or sourced from HOK Camp. All art assets
-            belong to their respective owners.
+            Artwork is AI-generated or sourced from HOK Camp. • All Artwork
+            assets belong to their respective owners.
           </span>
+          <br />
         </p>
       </div>
     </footer>

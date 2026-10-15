@@ -1344,3 +1344,80 @@ html.light .hok-background__particle:nth-child(even) {
     animation: none;
   }
 }
+
+/* ===== BACKGROUND GAMBAR DARK / LIGHT ===== */
+
+/* Dark mode: artwork yang sekarang */
+
+html.dark .hok-background__artwork {
+  background-image: url("/images/background-page.png");
+  opacity: 1;
+}
+
+/* Light mode: artwork siang */
+
+html.light .hok-background__artwork {
+  background-image: url("/images/background-page-light.png");
+  opacity: 1;
+  filter: brightness(0.75) saturate(0.9);
+}
+
+/*
+  Gambar light sudah terang.
+  Overlay tipis menjaga detail istana tetap terlihat.
+*/
+
+html.light .hok-background__overlay {
+  background: linear-gradient(
+    to bottom,
+    rgb(20 40 70 / 5%) 0%,
+    rgb(20 40 70 / 8%) 50%,
+    rgb(20 40 70 / 18%) 100%
+  );
+}
+
+/* Kabut di atas gambar dan overlay */
+
+html.light .hok-background__mist {
+  display: block;
+  visibility: visible;
+  mix-blend-mode: multiply;
+}
+
+/* Partikel di atas gambar dan kabut */
+
+html.light .hok-background__particles {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Gerakan background berlaku di kedua tema */
+
+html.dark .hok-background__artwork,
+html.light .hok-background__artwork {
+  background-position: 60% center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  transform-origin: 60% 45%;
+  animation: hok-artwork-drift 32s ease-in-out infinite alternate;
+}
+
+/* Mobile */
+
+@media (max-width: 640px) {
+  html.dark .hok-background__artwork,
+  html.light .hok-background__artwork {
+    background-position: 62% center;
+  }
+}
+
+/* Mengikuti pengaturan Reduce Motion perangkat */
+
+@media (prefers-reduced-motion: reduce) {
+  html.dark .hok-background__artwork,
+  html.light .hok-background__artwork {
+    animation: none;
+  }
+}

@@ -20,6 +20,7 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
         height={150}
         sizes="(max-width: 640px) 76px, 110px"
         className="hok-floating-support__image"
+        loading="eager"
       />
     </a>
   );
