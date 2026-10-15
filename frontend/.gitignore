@@ -1,0 +1,77 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+/test-results/
+/playwright-report/
+/blob-report/
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+/dist/
+
+# local caches and temporary files
+/.cache/
+/tmp/
+/temp/
+
+# misc
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.pem
+*.swp
+*.swo
+*~
+
+# local editor state (keep shared project configuration)
+.idea/
+.vscode/*.local.json
+*.suo
+*.user
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+
+# local environment files; keep setup templates shareable
+.env*
+!.env.example
+!.env.*.example
+!.env.sample
+!.env.*.sample
+!.env.template
+!.env.*.template
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# local AI agent instructions and state (any letter case)
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+.agents/
+.codex/
+.claude/
+
+# design reference screenshots (not application assets)
+/public/ui-reference*.png
