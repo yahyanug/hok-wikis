@@ -105,13 +105,13 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
 
   return (
     <div className="space-y-7">
-      <Card className="w-full max-w-full gap-0 rounded-xl border border-border bg-card/95 py-0 shadow-lg backdrop-blur-md">
-        <CardContent className="grid gap-4 p-3 sm:p-4 min-[1400px]:grid-cols-[minmax(0,6fr)_minmax(0,7fr)]">
+      <Card className="mx-auto w-fit max-w-full gap-0 rounded-xl border border-border bg-card/95 py-0 shadow-lg backdrop-blur-md">
+        <CardContent className="flex flex-col items-center gap-4 p-3 sm:p-4 min-[1400px]:flex-row min-[1400px]:items-start">
           {/* Lane filter */}
-          <div className="min-w-0">
+          <div className="w-full min-w-0 min-[1400px]:w-auto">
             <p
               id="heroes-lane-label"
-              className="mb-3 text-[11px] font-semibold tracking-widest uppercase"
+              className="mb-2 text-center text-[11px] font-semibold tracking-widest uppercase"
             >
               Pilih Lane
             </p>
@@ -122,23 +122,23 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
               value={selectedLane}
               onValueChange={changeLane}
               aria-labelledby="heroes-lane-label"
-              className="w-full flex-wrap justify-start gap-2"
+              className="w-full flex-wrap justify-center gap-2"
             >
               {laneOptions.map((option) => (
                 <ToggleGroupItem
                   key={option.value}
                   value={option.value}
-                  className="h-20 w-20 min-w-20 flex-col gap-2 rounded-lg border border-border bg-background/40 px-2 py-3 text-xs tracking-normal text-muted-foreground hover:bg-accent hover:text-accent-foreground data-[state=on]:border-primary data-[state=on]:bg-accent data-[state=on]:text-accent-foreground data-[state=on]:ring-1 data-[state=on]:ring-primary/30"
+                  className="h-16 w-16 min-w-16 flex-col gap-1.5 rounded-lg border border-border bg-background/40 px-1 py-2 text-[10px] tracking-normal text-muted-foreground hover:bg-accent hover:text-accent-foreground data-[state=on]:border-primary data-[state=on]:bg-accent data-[state=on]:text-accent-foreground data-[state=on]:ring-1 data-[state=on]:ring-primary/30 sm:h-18 sm:w-18 sm:min-w-18 sm:text-[11px]"
                 >
                   {option.value === "ALL" ? (
-                    <LayoutGrid aria-hidden="true" className="size-7!" />
+                    <LayoutGrid aria-hidden="true" className="size-6! sm:size-7!" />
                   ) : (
                     <Image
                       src={laneImages[option.value]}
                       alt=""
-                      width={32}
-                      height={32}
-                      className="size-8 shrink-0 object-contain brightness-0 dark:brightness-100"
+                      width={28}
+                      height={28}
+                      className="size-6 shrink-0 object-contain brightness-0 sm:size-7 dark:brightness-100"
                     />
                   )}
 
@@ -149,10 +149,10 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
           </div>
 
           {/* Role filter */}
-          <div className="min-w-0 border-t border-border pt-4 min-[1400px]:border-t-0 min-[1400px]:border-l min-[1400px]:pt-0 min-[1400px]:pl-4">
+          <div className="w-full min-w-0 border-t border-border pt-4 min-[1400px]:w-auto min-[1400px]:border-t-0 min-[1400px]:border-l min-[1400px]:pt-0 min-[1400px]:pl-4">
             <p
               id="heroes-role-label"
-              className="mb-3 text-[11px] font-semibold tracking-widest uppercase"
+              className="mb-2 text-center text-[11px] font-semibold tracking-widest uppercase"
             >
               Pilih Role
             </p>
@@ -163,23 +163,23 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
               value={selectedRole}
               onValueChange={changeRole}
               aria-labelledby="heroes-role-label"
-              className="w-full flex-wrap justify-start gap-2"
+              className="w-full flex-wrap justify-center gap-2"
             >
               {roleOptions.map((option) => (
                 <ToggleGroupItem
                   key={option.value}
                   value={option.value}
-                  className="h-20 w-20 min-w-20 flex-col gap-2 rounded-lg border border-border bg-background/40 px-2 py-3 text-xs tracking-normal text-muted-foreground hover:bg-accent hover:text-accent-foreground data-[state=on]:border-primary data-[state=on]:bg-accent data-[state=on]:text-accent-foreground data-[state=on]:ring-1 data-[state=on]:ring-primary/30"
+                  className="h-16 w-16 min-w-16 flex-col gap-1.5 rounded-lg border border-border bg-background/40 px-1 py-2 text-[10px] tracking-normal text-muted-foreground hover:bg-accent hover:text-accent-foreground data-[state=on]:border-primary data-[state=on]:bg-accent data-[state=on]:text-accent-foreground data-[state=on]:ring-1 data-[state=on]:ring-primary/30 sm:h-18 sm:w-18 sm:min-w-18 sm:text-[11px]"
                 >
                   {option.value === "ALL" ? (
-                    <LayoutGrid aria-hidden="true" className="size-7!" />
+                    <LayoutGrid aria-hidden="true" className="size-6! sm:size-7!" />
                   ) : (
                     <Image
                       src={roleImages[option.value]}
                       alt=""
-                      width={32}
-                      height={32}
-                      className="size-8 shrink-0 object-contain brightness-0 dark:brightness-100"
+                      width={28}
+                      height={28}
+                      className="size-6 shrink-0 object-contain brightness-0 sm:size-7 dark:brightness-100"
                     />
                   )}
 
@@ -192,9 +192,9 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
       </Card>
 
       {/* Hero list */}
-      <section aria-labelledby="heroes-results-title">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-3">
+      <section aria-labelledby="heroes-results-title" className="w-full">
+        <div className="mb-4 flex flex-wrap items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <h2
               id="heroes-results-title"
               className="font-serif text-2xl font-semibold"
@@ -259,9 +259,11 @@ export function HeroesCatalog({ heroes }: HeroesCatalogProps) {
         </div>
 
         {visibleHeroes.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
+          <div role="list" className="flex flex-wrap justify-center gap-3 sm:gap-4">
             {visibleHeroes.map((hero) => (
-              <HeroCard key={hero.slug} hero={hero} />
+              <div key={hero.slug} role="listitem" className="w-full sm:w-[calc((100%_-_1rem)/2)] md:w-[calc((100%_-_2rem)/3)] xl:w-[calc((100%_-_5rem)/6)]">
+                <HeroCard hero={hero} />
+              </div>
             ))}
           </div>
         ) : (

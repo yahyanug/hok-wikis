@@ -16,21 +16,18 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 
 const mainItems = [
-  { label: "Heroes", href: "/heroes" },
+  { label: "News", href: "/news" },
   { label: "Matchups", href: "/matchups" },
 ];
 
 const resourceItems = [
+  { label: "Heroes", href: "/heroes" },
   { label: "Items", href: "/items" },
   { label: "Spells", href: "/spells" },
   { label: "Arcana", href: "/arcana" },
-  { label: "Guides", href: "/guides" },
 ];
 
-const additionalItems = [
-  { label: "News", href: "/news" },
-  { label: "About", href: "/about" },
-];
+const additionalItems = [{ label: "About", href: "/about" }];
 
 export function AppHeader() {
   const pathname = usePathname();

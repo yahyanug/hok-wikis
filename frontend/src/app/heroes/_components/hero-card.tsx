@@ -16,7 +16,7 @@ type HeroCardProps = {
 export function HeroCard({ hero }: HeroCardProps) {
   return (
     <Dialog.Root>
-      <Card className="gap-0 rounded-xl border border-border py-0">
+      <Card className="h-full w-full gap-0 rounded-xl border border-border py-0">
         <Dialog.Trigger asChild>
           <button
             type="button"
@@ -30,7 +30,7 @@ export function HeroCard({ hero }: HeroCardProps) {
                 src={hero.image}
                 alt=""
                 fill
-                sizes="(max-width: 639px) 50vw, (max-width: 1023px) 33vw, 17vw"
+                sizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, (max-width: 1279px) 33vw, 17vw"
                 className="object-cover transition-transform duration-300 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
                 style={{
                   objectPosition: hero.imagePosition ?? "center",
@@ -64,7 +64,7 @@ export function HeroCard({ hero }: HeroCardProps) {
               </span>
             </span>
 
-            <span className="block w-full p-3.5">
+            <span className="block w-full p-3">
               <span className="flex items-center justify-between gap-2">
                 <span className="text-sm font-semibold text-card-foreground">
                   {hero.name}
