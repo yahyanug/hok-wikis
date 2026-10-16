@@ -1368,7 +1368,7 @@ html.light .hok-background__particle:nth-child(even) {
 
 .hok-floating-actions {
   position: fixed;
-  top: 50%;
+  top: 46%;
   right: max(16px, env(safe-area-inset-right));
   z-index: 45;
 
@@ -1409,6 +1409,26 @@ html.light .hok-background__particle:nth-child(even) {
   outline-offset: 5px;
 }
 
+.hok-floating-support[data-help-launching="true"] .hok-floating-support__image,
+body:has(.hok-help-flight) [data-feedback-illustration] {
+  visibility: hidden;
+}
+
+.hok-help-flight {
+  position: fixed;
+  z-index: 46;
+  pointer-events: none;
+  transform-origin: top left;
+  filter: drop-shadow(0 6px 18px color-mix(in srgb, var(--primary) 30%, transparent));
+}
+
+.hok-help-flight__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 @keyframes hok-support-float {
   0%,
   100% {
@@ -1435,9 +1455,8 @@ html.light .hok-background__particle:nth-child(even) {
 
 @media (max-height: 600px) {
   .hok-floating-actions {
-    top: auto;
-    bottom: max(12px, env(safe-area-inset-bottom));
-    transform: none;
+    gap: 12px;
+    width: min(76px, 18vh);
   }
 }
 
