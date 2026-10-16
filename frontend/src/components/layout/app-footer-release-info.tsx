@@ -74,14 +74,14 @@ export function FooterReleaseInfo() {
     <div
       className="hok-footer__release-info"
       role="group"
-      aria-label="Versi website dan pembaruan konten"
+      aria-label="Versi website dan pembaruan deployment"
     >
       <span className="hok-footer__version">
         <span className="sr-only">Versi aplikasi </span>v
         {siteInfo.deploymentVersion}
       </span>
 
-      <span className="hok-footer__update-label">Latest content update:</span>
+      <span className="hok-footer__update-label">Latest deployment update:</span>
 
       {isLoading ? (
         <span className="hok-footer__update-date">Memuat…</span>
