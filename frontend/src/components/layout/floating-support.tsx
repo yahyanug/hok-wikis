@@ -13,9 +13,11 @@ import {
 import { createPortal } from "react-dom";
 
 type FlightRect = { left: number; top: number; width: number; height: number };
+type FloatingDestination = "/feedback" | "/support-us";
 type HelpFlight = {
   id: number;
   sourcePath: string;
+  destination: FloatingDestination;
   src: string;
   origin: FlightRect;
 };
@@ -74,6 +76,7 @@ function waitForLayout(
 }
 
 function waitForIllustration(
+  selector: string,
   signal: AbortSignal,
 ): Promise<HTMLImageElement | null> {
   return new Promise((resolve) => {
@@ -89,9 +92,7 @@ function waitForIllustration(
       finish(null);
     }
     function find() {
-      const image = document.querySelector<HTMLImageElement>(
-        "[data-feedback-illustration]",
-      );
+      const image = document.querySelector<HTMLImageElement>(selector);
       if (image) finish(image);
       return image;
     }
@@ -145,7 +146,10 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
     setFlight((current) => (current?.id === id ? null : current));
   }, []);
 
-  function openFeedback(event: MouseEvent<HTMLAnchorElement>) {
+  function openFloatingPage(
+    event: MouseEvent<HTMLAnchorElement>,
+    destination: FloatingDestination,
+  ) {
     if (
       event.defaultPrevented ||
       event.button !== 0 ||
@@ -165,18 +169,19 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
 
     const image = event.currentTarget.querySelector("img");
     if (!image) {
-      router.push("/feedback");
+      router.push(destination);
       return;
     }
     const rect = image.getBoundingClientRect();
     if (!rect.width || !rect.height) {
-      router.push("/feedback");
+      router.push(destination);
       return;
     }
 
     const nextFlight: HelpFlight = {
       id: ++flightId.current,
       sourcePath: pathname,
+      destination,
       src: image.currentSrc || image.src,
       origin: {
         left: rect.left,
@@ -187,7 +192,7 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
     };
     flightRef.current = nextFlight;
     setFlight(nextFlight);
-    router.prefetch("/feedback");
+    router.prefetch(destination);
   }
 
   useEffect(() => {
@@ -207,10 +212,10 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
       }
     }
 
-    function navigateToFeedback() {
+    function navigateToDestination() {
       if (!flight || controller.signal.aborted) return;
       navigationStarted.current = flight.id;
-      router.push("/feedback");
+      router.push(flight.destination);
       navigationTimeout = window.setTimeout(
         () => finishFlight(flight.id),
         5000,
@@ -288,16 +293,21 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
             },
             600,
           );
-          navigateToFeedback();
+          navigateToDestination();
           return;
         }
 
-        if (pathname !== "/feedback") {
+        if (pathname !== flight.destination) {
           finishFlight(flight.id);
           return;
         }
 
-        const target = await waitForIllustration(controller.signal);
+        const target = await waitForIllustration(
+          flight.destination === "/feedback"
+            ? "[data-feedback-illustration]"
+            : "[data-support-illustration]",
+          controller.signal,
+        );
         if (controller.signal.aborted) return;
         if (target) {
           hiddenTarget = target;
@@ -342,7 +352,7 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
         if (!controller.signal.aborted) {
           restoreTarget();
           finishFlight(flight.id);
-          if (pathname === flight.sourcePath) router.push("/feedback");
+          if (pathname === flight.sourcePath) router.push(flight.destination);
         }
       } finally {
         restoreTarget();
@@ -384,6 +394,9 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
         {!isSupportPage && (
           <Link
             href="/support-us"
+            onClick={(event) => openFloatingPage(event, "/support-us")}
+            aria-busy={flight?.destination === "/support-us"}
+            data-flight-launching={flight?.destination === "/support-us"}
             className="hok-floating-support"
             aria-label="Support Us — dukung HOK Wiki"
           >
@@ -394,6 +407,10 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
               height={150}
               sizes="(max-width: 640px) 76px, 150px"
               className="hok-floating-support__image"
+              style={{
+                visibility:
+                  flight?.destination === "/support-us" ? "hidden" : undefined,
+              }}
               loading="eager"
             />
           </Link>
@@ -401,9 +418,9 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
         {!isFeedbackPage && (
           <Link
             href="/feedback"
-            onClick={openFeedback}
-            aria-busy={Boolean(flight)}
-            data-help-launching={Boolean(flight)}
+            onClick={(event) => openFloatingPage(event, "/feedback")}
+            aria-busy={flight?.destination === "/feedback"}
+            data-flight-launching={flight?.destination === "/feedback"}
             className="hok-floating-support"
             aria-label="Help Us Improve — kirim masukan untuk HOK Wiki"
           >
@@ -414,7 +431,10 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
               height={160}
               sizes="(max-width: 640px) 76px, 150px"
               className="hok-floating-support__image"
-              style={{ visibility: flight ? "hidden" : undefined }}
+              style={{
+                visibility:
+                  flight?.destination === "/feedback" ? "hidden" : undefined,
+              }}
               loading="eager"
             />
           </Link>
@@ -426,7 +446,8 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
             key={flight.id}
             ref={ghostRef}
             aria-hidden="true"
-            className="hok-help-flight"
+            className="hok-floating-flight"
+            data-flight-destination={flight.destination}
             style={{
               position: "fixed",
               inset: "auto",
@@ -437,6 +458,8 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
               zIndex: 46,
               pointerEvents: "none",
               transformOrigin: "0 0",
+              filter:
+                "drop-shadow(0 6px 18px color-mix(in srgb, var(--primary) 30%, transparent))",
             }}
           >
             <Image
@@ -445,7 +468,7 @@ export function FloatingSupport({ href }: FloatingSupportProps) {
               width={320}
               height={320}
               unoptimized
-              className="hok-help-flight__image"
+              className="hok-floating-flight__image"
               style={{
                 display: "block",
                 width: "100%",
