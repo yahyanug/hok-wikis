@@ -1,6 +1,6 @@
 package com.hok_wiki.security;
 
-import com.hok_wiki.constant.ErrorCodeGlobalEnum;
+import com.hok_wiki.exception.GlobalErrorCodeEnum;
 import com.hok_wiki.exception.AuthErrorCodeEnum;
 import com.hok_wiki.exception.BusinessException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +33,7 @@ public class SecurityErrorHandler implements AuthenticationEntryPoint, AccessDen
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException exception) {
 		handlerExceptionResolver.resolveException(request, response, null,
-				new BusinessException(ErrorCodeGlobalEnum.HTTP_ACCESS_DENIED));
+				new BusinessException(GlobalErrorCodeEnum.HTTP_ACCESS_DENIED));
 	}
 
 	public void unauthorized(HttpServletRequest request, HttpServletResponse response) {

@@ -3,7 +3,7 @@ package com.hok_wiki.service.impl;
 import java.util.UUID;
 
 import com.hok_wiki.domain.Item;
-import com.hok_wiki.constant.ErrorCodeGlobalEnum;
+import com.hok_wiki.exception.GlobalErrorCodeEnum;
 import com.hok_wiki.dto.response.ItemView;
 import com.hok_wiki.dto.request.ItemRequest;
 import com.hok_wiki.dto.request.PageRequest;
@@ -37,7 +37,7 @@ public class ItemServiceImpl implements ItemService {
 	public ItemView findBySlug(String slug) {
 		return itemRepository.findBySlug(slug)
 				.map(mapStructConverter::toView)
-				.orElseThrow(() -> new BusinessException(ErrorCodeGlobalEnum.ENTITY_NOT_FOUND, "Item"));
+				.orElseThrow(() -> new BusinessException(GlobalErrorCodeEnum.ENTITY_NOT_FOUND, "Item"));
 	}
 
 	@Override
@@ -72,14 +72,14 @@ public class ItemServiceImpl implements ItemService {
 
 	private Item findEntity(UUID id) {
 		return itemRepository.findById(id)
-				.orElseThrow(() -> new BusinessException(ErrorCodeGlobalEnum.ENTITY_NOT_FOUND, "Item"));
+				.orElseThrow(() -> new BusinessException(GlobalErrorCodeEnum.ENTITY_NOT_FOUND, "Item"));
 	}
 
 	private void ensureSlugAvailable(String slug, UUID id) {
 		boolean exists = id == null ? itemRepository.existsBySlug(slug)
 				: itemRepository.existsBySlugAndIdNot(slug, id);
 		if (exists) {
-			throw new BusinessException(ErrorCodeGlobalEnum.SLUG_ALREADY_EXISTS, "Item");
+			throw new BusinessException(GlobalErrorCodeEnum.SLUG_ALREADY_EXISTS, "Item");
 		}
 	}
 

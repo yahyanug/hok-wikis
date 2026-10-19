@@ -1,13 +1,14 @@
 package com.hok_wiki.mapper;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import com.hok_wiki.constant.HeroLane;
+import com.hok_wiki.constant.HeroRole;
 import com.hok_wiki.domain.Arcana;
 import com.hok_wiki.domain.Hero;
 import com.hok_wiki.domain.Item;
-import com.hok_wiki.domain.Lane;
-import com.hok_wiki.domain.Role;
 import com.hok_wiki.domain.Spell;
 import com.hok_wiki.domain.UserAccount;
 import com.hok_wiki.dto.response.AccountView;
@@ -21,8 +22,6 @@ import com.hok_wiki.dto.request.HeroRequest;
 import com.hok_wiki.dto.request.ItemRequest;
 import com.hok_wiki.dto.request.ArcanaRequest;
 import com.hok_wiki.dto.request.SpellRequest;
-import com.hok_wiki.dto.request.LaneRequest;
-import com.hok_wiki.dto.request.RoleRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.Mapping;
@@ -46,9 +45,13 @@ public interface MapStructConverter {
 
 	SpellView toView(Spell spell);
 
-	LaneView toView(Lane lane);
+	default LaneView toView(HeroLane lane) {
+		return lane == null ? null : new LaneView(lane, lane.getSlug(), lane.getImageUrl());
+	}
 
-	RoleView toView(Role role);
+	default RoleView toView(HeroRole role) {
+		return role == null ? null : new RoleView(role, role.getSlug(), role.getImageUrl());
+	}
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "roles", ignore = true)
@@ -76,26 +79,16 @@ public interface MapStructConverter {
 	@InheritConfiguration(name = "toEntity")
 	void update(SpellRequest request, @MappingTarget Spell spell);
 
-	@Mapping(target = "id", ignore = true)
-	Lane toEntity(LaneRequest request);
-
-	@InheritConfiguration(name = "toEntity")
-	void update(LaneRequest request, @MappingTarget Lane lane);
-
-	@Mapping(target = "id", ignore = true)
-	Role toEntity(RoleRequest request);
-
-	@InheritConfiguration(name = "toEntity")
-	void update(RoleRequest request, @MappingTarget Role role);
-
 	@Named("roleNames")
-	default List<String> roleNames(Set<Role> roles) {
-		return roles == null ? List.of() : roles.stream().map(Role::getName).sorted().toList();
+	default List<HeroRole> roleNames(Set<HeroRole> roles) {
+		return roles == null ? List.of()
+				: roles.stream().sorted(Comparator.comparing(HeroRole::name)).toList();
 	}
 
 	@Named("laneNames")
-	default List<String> laneNames(Set<Lane> lanes) {
-		return lanes == null ? List.of() : lanes.stream().map(Lane::getName).sorted().toList();
+	default List<HeroLane> laneNames(Set<HeroLane> lanes) {
+		return lanes == null ? List.of()
+				: lanes.stream().sorted(Comparator.comparing(HeroLane::name)).toList();
 	}
 
 }

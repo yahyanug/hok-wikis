@@ -1,6 +1,6 @@
 package com.hok_wiki.dto.response;
 
-import java.util.UUID;
+import com.hok_wiki.constant.HeroLane;
 
-public record LaneView(UUID id, String name, String slug, String imageUrl) {
+public record LaneView(HeroLane name, String slug, String imageUrl) {
 }

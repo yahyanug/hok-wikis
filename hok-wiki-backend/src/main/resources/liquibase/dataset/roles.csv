@@ -1,7 +1,0 @@
-id;name;slug;image_url
-ebad753b-e80f-5b17-b93e-d33c782190dc;FIGHTER;fighter;/images/roles/fighter.png
-677ef8ee-6df4-5a34-84cd-00aeafc1ae24;ASSASSIN;assassin;/images/roles/assassin.png
-c9add348-e105-57ae-bf9e-b9b18345780a;MAGE;mage;/images/roles/mage.png
-a0eef681-c7c8-5845-b487-afcd554f9f02;MARKSMAN;marksman;/images/roles/marksman.png
-4aca6b6f-9e4d-5968-a695-e29371aa21ee;TANK;tank;/images/roles/tank.png
-a2b2a4e4-a2e2-580c-8565-8e78b89d2d50;SUPPORT;support;/images/roles/support.png

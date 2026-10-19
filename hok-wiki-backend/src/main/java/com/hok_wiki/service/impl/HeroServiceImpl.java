@@ -6,17 +6,15 @@ import java.util.UUID;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.hok_wiki.constant.HeroLane;
+import com.hok_wiki.constant.HeroRole;
 import com.hok_wiki.domain.Hero;
-import com.hok_wiki.domain.Lane;
-import com.hok_wiki.domain.Role;
-import com.hok_wiki.repository.LaneRepository;
-import com.hok_wiki.repository.RoleRepository;
 
 import com.hok_wiki.dto.response.HeroPage;
 import com.hok_wiki.dto.request.HeroSearchCriteria;
 import com.hok_wiki.dto.response.HeroView;
 import com.hok_wiki.dto.request.HeroRequest;
-import com.hok_wiki.exception.HeroErrorCodeEnum;
+import com.hok_wiki.exception.GlobalErrorCodeEnum;
 import com.hok_wiki.exception.BusinessException;
 import com.hok_wiki.mapper.MapStructConverter;
 import com.hok_wiki.repository.HeroRepository;
@@ -36,10 +34,6 @@ public class HeroServiceImpl implements HeroService {
 
 	private final MapStructConverter mapStructConverter;
 
-	private final RoleRepository roleRepository;
-
-	private final LaneRepository laneRepository;
-
 	@Override
 	public HeroPage findHeroes(HeroSearchCriteria criteria) {
 		Objects.requireNonNull(criteria, "criteria must not be null");
@@ -56,7 +50,7 @@ public class HeroServiceImpl implements HeroService {
 	public HeroView findBySlug(String slug) {
 		return heroRepository.findBySlugWithRolesAndLanes(slug)
 				.map(mapStructConverter::toView)
-				.orElseThrow(() -> new BusinessException(HeroErrorCodeEnum.NOT_FOUND));
+				.orElseThrow(() -> new BusinessException(GlobalErrorCodeEnum.ENTITY_NOT_FOUND, "Hero"));
 	}
 
 	@Override
@@ -93,26 +87,20 @@ public class HeroServiceImpl implements HeroService {
 
 	private Hero findEntity(UUID id) {
 		return heroRepository.findByIdWithRolesAndLanes(id)
-				.orElseThrow(() -> new BusinessException(HeroErrorCodeEnum.NOT_FOUND));
+				.orElseThrow(() -> new BusinessException(GlobalErrorCodeEnum.ENTITY_NOT_FOUND, "Hero"));
 	}
 
 	private void ensureSlugAvailable(String slug, UUID id) {
 		boolean exists = id == null ? heroRepository.existsBySlug(slug)
 				: heroRepository.existsBySlugAndIdNot(slug, id);
 		if (exists) {
-			throw new BusinessException(HeroErrorCodeEnum.SLUG_ALREADY_EXISTS);
+			throw new BusinessException(GlobalErrorCodeEnum.SLUG_ALREADY_EXISTS, "Hero");
 		}
 	}
 
 	private void setClassifications(Hero hero, HeroRequest request) {
-		Set<Role> roles = new HashSet<>(roleRepository.findAllById(request.roleIds()));
-		Set<Lane> lanes = new HashSet<>(laneRepository.findAllById(request.laneIds()));
-		if (roles.size() != request.roleIds().size()) {
-			throw new BusinessException(HeroErrorCodeEnum.ROLE_NOT_FOUND);
-		}
-		if (lanes.size() != request.laneIds().size()) {
-			throw new BusinessException(HeroErrorCodeEnum.LANE_NOT_FOUND);
-		}
+		Set<HeroRole> roles = new HashSet<>(request.roles());
+		Set<HeroLane> lanes = new HashSet<>(request.lanes());
 		hero.getRoles().clear();
 		hero.getRoles().addAll(roles);
 		hero.getLanes().clear();

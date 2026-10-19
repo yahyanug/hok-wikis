@@ -1,5 +1,7 @@
 package com.hok_wiki.controller;
 
+import com.hok_wiki.constant.HeroLane;
+import com.hok_wiki.constant.HeroRole;
 import com.hok_wiki.dto.response.HeroPage;
 import com.hok_wiki.dto.request.HeroSearchCriteria;
 import com.hok_wiki.dto.response.HeroView;
@@ -7,7 +9,6 @@ import com.hok_wiki.dto.request.PageRequest;
 import com.hok_wiki.service.HeroService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class HeroController {
 
 	@GetMapping("/by-role/{role}")
 	public ResponseEntity<HeroPage> findByRole(
-			@PathVariable("role") @NotBlank @Size(max = HeroSearchCriteria.MAX_CLASSIFICATION_LENGTH) String role,
+			@PathVariable("role") HeroRole role,
 			@Valid @ModelAttribute PageRequest request) {
 		return ResponseEntity.ok(heroService.findHeroes(
 				new HeroSearchCriteria(role, null, request.getPage(), request.getSize())));
@@ -42,7 +43,7 @@ public class HeroController {
 
 	@GetMapping("/by-lane/{lane}")
 	public ResponseEntity<HeroPage> findByLane(
-			@PathVariable("lane") @NotBlank @Size(max = HeroSearchCriteria.MAX_CLASSIFICATION_LENGTH) String lane,
+			@PathVariable("lane") HeroLane lane,
 			@Valid @ModelAttribute PageRequest request) {
 		return ResponseEntity.ok(heroService.findHeroes(
 				new HeroSearchCriteria(null, lane, request.getPage(), request.getSize())));

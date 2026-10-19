@@ -1,6 +1,6 @@
 package com.hok_wiki.dto.response;
 
-import java.util.UUID;
+import com.hok_wiki.constant.HeroRole;
 
-public record RoleView(UUID id, String name, String slug, String imageUrl) {
+public record RoleView(HeroRole name, String slug, String imageUrl) {
 }

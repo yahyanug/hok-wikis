@@ -3,7 +3,7 @@ package com.hok_wiki.service.impl;
 import java.util.UUID;
 
 import com.hok_wiki.domain.Spell;
-import com.hok_wiki.constant.ErrorCodeGlobalEnum;
+import com.hok_wiki.exception.GlobalErrorCodeEnum;
 import com.hok_wiki.dto.response.SpellView;
 import com.hok_wiki.dto.request.SpellRequest;
 import com.hok_wiki.dto.request.PageRequest;
@@ -37,7 +37,7 @@ public class SpellServiceImpl implements SpellService {
 	public SpellView findBySlug(String slug) {
 		return spellRepository.findBySlug(slug)
 				.map(mapStructConverter::toView)
-				.orElseThrow(() -> new BusinessException(ErrorCodeGlobalEnum.ENTITY_NOT_FOUND, "Spell"));
+				.orElseThrow(() -> new BusinessException(GlobalErrorCodeEnum.ENTITY_NOT_FOUND, "Spell"));
 	}
 
 	@Override
@@ -72,14 +72,14 @@ public class SpellServiceImpl implements SpellService {
 
 	private Spell findEntity(UUID id) {
 		return spellRepository.findById(id)
-				.orElseThrow(() -> new BusinessException(ErrorCodeGlobalEnum.ENTITY_NOT_FOUND, "Spell"));
+				.orElseThrow(() -> new BusinessException(GlobalErrorCodeEnum.ENTITY_NOT_FOUND, "Spell"));
 	}
 
 	private void ensureSlugAvailable(String slug, UUID id) {
 		boolean exists = id == null ? spellRepository.existsBySlug(slug)
 				: spellRepository.existsBySlugAndIdNot(slug, id);
 		if (exists) {
-			throw new BusinessException(ErrorCodeGlobalEnum.SLUG_ALREADY_EXISTS, "Spell");
+			throw new BusinessException(GlobalErrorCodeEnum.SLUG_ALREADY_EXISTS, "Spell");
 		}
 	}
 

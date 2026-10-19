@@ -3,7 +3,6 @@ package com.hok_wiki.exception;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hok_wiki.constant.ErrorCodeGlobalEnum;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -45,17 +44,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(AccessDeniedException.class)
 	public ResponseEntity<Object> handleAccessDenied(AccessDeniedException exception) {
-		return buildResponseEntity(new ApiError(ErrorCodeGlobalEnum.HTTP_ACCESS_DENIED));
+		return buildResponseEntity(new ApiError(GlobalErrorCodeEnum.HTTP_ACCESS_DENIED));
 	}
 
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<Object> handleDataIntegrityViolation(DataIntegrityViolationException exception) {
-		return buildResponseEntity(new ApiError(ErrorCodeGlobalEnum.CONSTRAINT_VIOLATION));
+		return buildResponseEntity(new ApiError(GlobalErrorCodeEnum.CONSTRAINT_VIOLATION));
 	}
 
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException exception) {
-		return buildResponseEntity(new ApiError(ErrorCodeGlobalEnum.ENTITY_NOT_FOUND, "Record"));
+		return buildResponseEntity(new ApiError(GlobalErrorCodeEnum.ENTITY_NOT_FOUND, "Record"));
 	}
 
 	@ExceptionHandler(ConstraintViolationException.class)
@@ -75,13 +74,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(IllegalArgumentException.class)
 	public ResponseEntity<Object> handleIllegalArgument(IllegalArgumentException exception) {
-		return buildResponseEntity(new ApiError(ErrorCodeGlobalEnum.INVALID_ARGUMENT));
+		return buildResponseEntity(new ApiError(GlobalErrorCodeEnum.INVALID_ARGUMENT));
 	}
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Object> handleUnexpectedException(Exception exception) {
 		log.error("Unhandled exception of type {}", exception.getClass().getName());
-		return buildResponseEntity(new ApiError(ErrorCodeGlobalEnum.RUNTIME_EXCEPTION));
+		return buildResponseEntity(new ApiError(GlobalErrorCodeEnum.RUNTIME_EXCEPTION));
 	}
 
 	@Override
@@ -133,18 +132,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private ApiError httpError(Exception exception, HttpStatus status) {
 		if (status.is5xxServerError()) {
-			return new ApiError(status, ErrorCodeGlobalEnum.RUNTIME_EXCEPTION);
+			return new ApiError(status, GlobalErrorCodeEnum.RUNTIME_EXCEPTION);
 		}
 		if (exception instanceof HttpMessageNotReadableException) {
-			return new ApiError(status, ErrorCodeGlobalEnum.HTTP_MESSAGE_NOT_READABLE);
+			return new ApiError(status, GlobalErrorCodeEnum.HTTP_MESSAGE_NOT_READABLE);
 		}
 		return switch (status) {
-			case BAD_REQUEST -> new ApiError(status, ErrorCodeGlobalEnum.INVALID_ARGUMENT);
-			case UNAUTHORIZED -> new ApiError(status, ErrorCodeGlobalEnum.UNAUTHORIZED);
-			case FORBIDDEN -> new ApiError(status, ErrorCodeGlobalEnum.HTTP_ACCESS_DENIED);
-			case NOT_FOUND -> new ApiError(ErrorCodeGlobalEnum.ENTITY_NOT_FOUND, "Resource");
-			case CONFLICT -> new ApiError(status, ErrorCodeGlobalEnum.CONSTRAINT_VIOLATION);
-			default -> new ApiError(status, ErrorCodeGlobalEnum.HTTP_ERROR, status.getReasonPhrase(), List.of());
+			case BAD_REQUEST -> new ApiError(status, GlobalErrorCodeEnum.INVALID_ARGUMENT);
+			case UNAUTHORIZED -> new ApiError(status, GlobalErrorCodeEnum.UNAUTHORIZED);
+			case FORBIDDEN -> new ApiError(status, GlobalErrorCodeEnum.HTTP_ACCESS_DENIED);
+			case NOT_FOUND -> new ApiError(GlobalErrorCodeEnum.ENTITY_NOT_FOUND, "Resource");
+			case CONFLICT -> new ApiError(status, GlobalErrorCodeEnum.CONSTRAINT_VIOLATION);
+			default -> new ApiError(status, GlobalErrorCodeEnum.HTTP_ERROR, status.getReasonPhrase(), List.of());
 		};
 	}
 
@@ -157,8 +156,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	private ApiError validationError(List<ApiValidationError> subErrors) {
-		return new ApiError(HttpStatus.BAD_REQUEST, ErrorCodeGlobalEnum.VALIDATION_ERROR,
-				ErrorCodeGlobalEnum.VALIDATION_ERROR.getDescription(), subErrors);
+		return new ApiError(HttpStatus.BAD_REQUEST, GlobalErrorCodeEnum.VALIDATION_ERROR,
+				GlobalErrorCodeEnum.VALIDATION_ERROR.getDescription(), subErrors);
 	}
 
 	private ResponseEntity<Object> buildResponseEntity(ApiError error) {

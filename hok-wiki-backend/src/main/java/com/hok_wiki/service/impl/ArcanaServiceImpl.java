@@ -3,7 +3,7 @@ package com.hok_wiki.service.impl;
 import java.util.UUID;
 
 import com.hok_wiki.domain.Arcana;
-import com.hok_wiki.constant.ErrorCodeGlobalEnum;
+import com.hok_wiki.exception.GlobalErrorCodeEnum;
 import com.hok_wiki.dto.response.ArcanaView;
 import com.hok_wiki.dto.request.ArcanaRequest;
 import com.hok_wiki.dto.request.PageRequest;
@@ -37,7 +37,7 @@ public class ArcanaServiceImpl implements ArcanaService {
 	public ArcanaView findBySlug(String slug) {
 		return arcanaRepository.findBySlug(slug)
 				.map(mapStructConverter::toView)
-				.orElseThrow(() -> new BusinessException(ErrorCodeGlobalEnum.ENTITY_NOT_FOUND, "Arcana"));
+				.orElseThrow(() -> new BusinessException(GlobalErrorCodeEnum.ENTITY_NOT_FOUND, "Arcana"));
 	}
 
 	@Override
@@ -72,14 +72,14 @@ public class ArcanaServiceImpl implements ArcanaService {
 
 	private Arcana findEntity(UUID id) {
 		return arcanaRepository.findById(id)
-				.orElseThrow(() -> new BusinessException(ErrorCodeGlobalEnum.ENTITY_NOT_FOUND, "Arcana"));
+				.orElseThrow(() -> new BusinessException(GlobalErrorCodeEnum.ENTITY_NOT_FOUND, "Arcana"));
 	}
 
 	private void ensureSlugAvailable(String slug, UUID id) {
 		boolean exists = id == null ? arcanaRepository.existsBySlug(slug)
 				: arcanaRepository.existsBySlugAndIdNot(slug, id);
 		if (exists) {
-			throw new BusinessException(ErrorCodeGlobalEnum.SLUG_ALREADY_EXISTS, "Arcana");
+			throw new BusinessException(GlobalErrorCodeEnum.SLUG_ALREADY_EXISTS, "Arcana");
 		}
 	}
 

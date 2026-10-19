@@ -8,9 +8,10 @@
 		<dbms type="postgresql"/>
 	</preConditions>
 
-	<include file="changelog/hero/001-create-hero-tables.xml" relativeToChangelogFile="true"/>
-	<include file="changelog/catalog/002-create-resource-tables.xml" relativeToChangelogFile="true"/>
-	<include file="changelog/hero/003-normalize-hero-relations.xml" relativeToChangelogFile="true"/>
-	<include file="changelog/catalog/004-load-datasets.xml" relativeToChangelogFile="true"/>
+	<!-- Superseded catalog changelogs remain on disk for history; they reference retired UUID datasets. -->
 	<include file="changelog/identity/005-create-identity-tables.xml" relativeToChangelogFile="true"/>
+	<include file="changelog/catalog/008-current-catalog-schema.xml" relativeToChangelogFile="true"/>
+	<include file="changelog/hero/009-align-hero-classification-schema.xml" relativeToChangelogFile="true"/>
+	<!-- Datasets are loaded only after the current schema and any legacy relations have been aligned. -->
+	<include file="changelog/catalog/007-load-enum-datasets.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

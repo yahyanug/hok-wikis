@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.hok_wiki.constant.HeroLane;
+import com.hok_wiki.constant.HeroRole;
 import com.hok_wiki.domain.Hero;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,18 +24,18 @@ public interface HeroRepository extends JpaRepository<Hero, UUID> {
 			where (:role is null or exists (
 				select 1 from Hero roleHero join roleHero.roles heroRole
 				where roleHero.id = hero.id
-				and (lower(heroRole.name) = lower(:role) or lower(heroRole.slug) = lower(:role))
+				and heroRole = :role
 			))
 			and (:lane is null or exists (
 				select 1 from Hero laneHero join laneHero.lanes heroLane
 				where laneHero.id = hero.id
-				and (lower(heroLane.name) = lower(:lane) or lower(heroLane.slug) = lower(:lane))
+				and heroLane = :lane
 			))
 			""";
 
 	@Query(value = "select hero.id from Hero hero " + FILTERS + " order by hero.name, hero.slug",
 			countQuery = "select count(hero) from Hero hero " + FILTERS)
-	Page<UUID> findPageIds(@Param("role") String role, @Param("lane") String lane, Pageable pageable);
+	Page<UUID> findPageIds(@Param("role") HeroRole role, @Param("lane") HeroLane lane, Pageable pageable);
 
 	@Query("""
 			select distinct hero from Hero hero
@@ -59,9 +61,5 @@ public interface HeroRepository extends JpaRepository<Hero, UUID> {
 			where hero.id = :id
 			""")
 	Optional<Hero> findByIdWithRolesAndLanes(@Param("id") UUID id);
-
-	boolean existsByRoles_Id(UUID roleId);
-
-	boolean existsByLanes_Id(UUID laneId);
 
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+	<changeSet id="hero-006-convert-classifications-to-enums" author="dev-yahya">
+		<preConditions onFail="HALT" onError="HALT"
+				onFailMessage="Hero classifications contain unsupported or duplicate normalized role/lane slugs. Resolve them before converting to enums.">
+			<sqlCheck expectedResult="0"><![CDATA[
+				SELECT count(*) FROM roles
+				WHERE upper(btrim(slug)) NOT IN ('FIGHTER', 'ASSASSIN', 'MAGE', 'MARKSMAN', 'TANK', 'SUPPORT')
+			]]></sqlCheck>
+			<sqlCheck expectedResult="0"><![CDATA[
+				SELECT count(*) FROM lanes
+				WHERE upper(btrim(slug)) NOT IN ('CLASH', 'JUNGLE', 'MID', 'FARM', 'ROAM')
+			]]></sqlCheck>
+			<sqlCheck expectedResult="0"><![CDATA[
+				SELECT count(*) FROM (
+					SELECT upper(btrim(slug)) FROM roles
+					GROUP BY upper(btrim(slug)) HAVING count(*) > 1
+				) duplicate_roles
+			]]></sqlCheck>
+			<sqlCheck expectedResult="0"><![CDATA[
+				SELECT count(*) FROM (
+					SELECT upper(btrim(slug)) FROM lanes
+					GROUP BY upper(btrim(slug)) HAVING count(*) > 1
+				) duplicate_lanes
+			]]></sqlCheck>
+		</preConditions>
+
+		<addColumn tableName="hero_roles">
+			<column name="role" type="varchar(32)"/>
+		</addColumn>
+		<sql>
+			UPDATE hero_roles relation SET role = upper(btrim(reference.slug))
+			FROM roles reference WHERE reference.id = relation.role_id
+		</sql>
+		<addNotNullConstraint tableName="hero_roles" columnName="role" columnDataType="varchar(32)"/>
+		<dropForeignKeyConstraint baseTableName="hero_roles" constraintName="fk_hero_roles_role"/>
+		<dropIndex tableName="hero_roles" indexName="idx_hero_roles_role_hero"/>
+		<dropPrimaryKey tableName="hero_roles" constraintName="pk_hero_roles"/>
+		<dropColumn tableName="hero_roles" columnName="role_id"/>
+		<addPrimaryKey tableName="hero_roles" columnNames="hero_id,role" constraintName="pk_hero_roles"/>
+		<createIndex tableName="hero_roles" indexName="idx_hero_roles_role_hero">
+			<column name="role"/>
+			<column name="hero_id"/>
+		</createIndex>
+
+		<addColumn tableName="hero_lanes">
+			<column name="lane" type="varchar(32)"/>
+		</addColumn>
+		<sql>
+			UPDATE hero_lanes relation SET lane = upper(btrim(reference.slug))
+			FROM lanes reference WHERE reference.id = relation.lane_id
+		</sql>
+		<addNotNullConstraint tableName="hero_lanes" columnName="lane" columnDataType="varchar(32)"/>
+		<dropForeignKeyConstraint baseTableName="hero_lanes" constraintName="fk_hero_lanes_lane"/>
+		<dropIndex tableName="hero_lanes" indexName="idx_hero_lanes_lane_hero"/>
+		<dropPrimaryKey tableName="hero_lanes" constraintName="pk_hero_lanes"/>
+		<dropColumn tableName="hero_lanes" columnName="lane_id"/>
+		<addPrimaryKey tableName="hero_lanes" columnNames="hero_id,lane" constraintName="pk_hero_lanes"/>
+		<createIndex tableName="hero_lanes" indexName="idx_hero_lanes_lane_hero">
+			<column name="lane"/>
+			<column name="hero_id"/>
+		</createIndex>
+
+		<sql>
+			ALTER TABLE hero_roles ADD CONSTRAINT chk_hero_roles_role
+				CHECK (role IN ('FIGHTER', 'ASSASSIN', 'MAGE', 'MARKSMAN', 'TANK', 'SUPPORT'));
+			ALTER TABLE hero_lanes ADD CONSTRAINT chk_hero_lanes_lane
+				CHECK (lane IN ('CLASH', 'JUNGLE', 'MID', 'FARM', 'ROAM'));
+		</sql>
+		<dropTable tableName="roles"/>
+		<dropTable tableName="lanes"/>
+
+		<!-- No automatic rollback: dropped classification UUIDs and custom metadata cannot be reconstructed. -->
+	</changeSet>
+</databaseChangeLog>
