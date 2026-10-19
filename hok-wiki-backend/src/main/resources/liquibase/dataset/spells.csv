@@ -1,0 +1,11 @@
+id;name;slug;cooldown_seconds;description;image_url
+7d3a4829-f80b-50fe-919a-721039df8a49;Execute;execute;60;"Deals true damage equal to 16% of nearby enemy heroes lost Health; finishing blow reduces remaining cooldown by 90%";/images/spells/execute.png
+26b5ae18-bea4-5d12-9ca9-6bfb5762d44f;Flash;flash;120;Teleports the hero a short distance in the chosen direction;/images/spells/flash.png
+ee747c24-406b-53a5-90ba-d2b7e12b27db;Frenzy;frenzy;60;For 7 seconds increases damage 10%, Resistance 15%, Physical Lifesteal 20%, and Magical Lifesteal 30%;/images/spells/frenzy.png
+08cc7163-145a-5230-b4ec-41bfc0a825d7;Heal;heal;120;"Restores 15% Health to user and nearby teammates; grants nearby teammates 15% Movement Speed for 2 seconds";/images/spells/heal.png
+deb34d1e-9365-5aee-bef8-7cdeee593fcd;Intimidate;intimidate;90;For 4 seconds reduces nearby enemies damage output 25% and increases user damage reduction 20%;/images/spells/intimidate.png
+1692e6df-6bd4-5634-ab55-bbea9a5375a6;Purify;purify;120;"Removes debuffs and crowd control except suppression; grants crowd-control immunity for 1.5 seconds";/images/spells/purify.png
+be039f22-a4e6-5c77-b7e1-397c0d2c7632;Smite;smite;30;Deals 1500 true damage to a nearby monster or minion and stuns it for 1 second;/images/spells/smite.png
+630bdaaa-d861-5ba8-82a0-6374d4b6e361;Sprint;sprint;90;"Removes slows and grants 30% Movement Speed for 10 seconds; incoming slows halved";/images/spells/sprint.png
+6e36805b-be2b-5a78-8159-7573d108e9fc;Stun;stun;90;Stuns nearby enemies for 0.75 seconds and slows them for 1 second;/images/spells/stun.png
+a31c94b9-aa2f-51ef-968a-fae4513976e3;Teleport;teleport;75;After a 2-second channel teleports next to an allied structure or minion;/images/spells/teleport.png

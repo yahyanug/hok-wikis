@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+	<changeSet id="hero-001-create-heroes-and-classifications" author="dev-yahya">
+		<createTable tableName="heroes">
+			<column name="id" type="uuid">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_heroes"/>
+			</column>
+			<column name="name" type="varchar(255)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="slug" type="varchar(128)">
+				<constraints nullable="false" unique="true" uniqueConstraintName="uk_heroes_slug"/>
+			</column>
+			<column name="image_url" type="text"/>
+		</createTable>
+
+		<createTable tableName="hero_roles">
+			<column name="hero_id" type="uuid">
+				<constraints nullable="false"/>
+			</column>
+			<column name="role" type="varchar(64)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<addPrimaryKey tableName="hero_roles" columnNames="hero_id,role" constraintName="pk_hero_roles"/>
+		<addForeignKeyConstraint baseTableName="hero_roles" baseColumnNames="hero_id"
+				referencedTableName="heroes" referencedColumnNames="id"
+				constraintName="fk_hero_roles_hero" onDelete="CASCADE"/>
+
+		<createTable tableName="hero_lanes">
+			<column name="hero_id" type="uuid">
+				<constraints nullable="false"/>
+			</column>
+			<column name="lane" type="varchar(64)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<addPrimaryKey tableName="hero_lanes" columnNames="hero_id,lane" constraintName="pk_hero_lanes"/>
+		<addForeignKeyConstraint baseTableName="hero_lanes" baseColumnNames="hero_id"
+				referencedTableName="heroes" referencedColumnNames="id"
+				constraintName="fk_hero_lanes_hero" onDelete="CASCADE"/>
+
+		<createIndex tableName="heroes" indexName="idx_heroes_name_slug">
+			<column name="name"/>
+			<column name="slug"/>
+		</createIndex>
+		<createIndex tableName="hero_roles" indexName="idx_hero_roles_lower_role_hero">
+			<column name="lower(role)" computed="true"/>
+			<column name="hero_id"/>
+		</createIndex>
+		<createIndex tableName="hero_lanes" indexName="idx_hero_lanes_lower_lane_hero">
+			<column name="lower(lane)" computed="true"/>
+			<column name="hero_id"/>
+		</createIndex>
+
+		<rollback>
+			<dropTable tableName="hero_lanes"/>
+			<dropTable tableName="hero_roles"/>
+			<dropTable tableName="heroes"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>

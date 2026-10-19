@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# local AI agent instructions and state (any letter case)
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+.agents/
+.codex/
+.claude/

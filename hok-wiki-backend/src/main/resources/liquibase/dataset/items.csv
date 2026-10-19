@@ -1,0 +1,108 @@
+id;name;slug;price_gold;image_url
+cc474585-c64c-53d6-8289-8059636c05aa;Amble - Winter;amble-winter;3190;/images/items/amble-winter.png
+1e64ad82-bc06-5c05-9697-9c55db14bca1;Ardent Dominion;ardent-dominion;2040;/images/items/ardent-dominion.png
+f80189ff-8a1e-5736-89b3-a869570195d8;Augur's Word;augurs-word;2150;/images/items/augurs-word.png
+ba190dd3-931f-5331-b098-b6790e5448bc;Axe of Torment;axe-of-torment;2090;/images/items/axe-of-torment.png
+c1e11c0e-7b5f-55dc-88ce-30da0d542aa0;Belt of Might;belt-of-might;850;/images/items/belt-of-might.png
+8a5ef8ec-74cf-55b5-b852-ae01cc62d75d;Blazing Cape;blazing-cape;2040;/images/items/blazing-cape.png
+05565e6a-ab00-5355-a59d-c02d3f03076e;Blood Clan's Grimoire;blood-clans-grimoire;800;/images/items/blood-clans-grimoire.png
+5d7c2b6c-bea3-5d97-8589-ac8b6f366102;Blood Rage;blood-rage;2180;/images/items/blood-rage.png
+a8946959-55b4-579b-8c16-f1135da6881e;Bloodsoul;bloodsoul;800;/images/items/bloodsoul.png
+234af78d-8827-5fe2-b9dd-a45ce0458ba6;Bloodweeper;bloodweeper;2000;/images/items/bloodweeper.png
+a5728e56-6319-506d-80fb-a42f98bc436f;Boots of Deftness;boots-of-deftness;700;/images/items/boots-of-deftness.png
+267353df-09e2-5ef1-a186-2c82e051915b;Boots of Dexterity;boots-of-dexterity;700;/images/items/boots-of-dexterity.png
+8a6868b5-b668-58a6-bcc3-b8ebaa3192b3;Boots of Fortitude;boots-of-fortitude;700;/images/items/boots-of-fortitude.png
+eb37edf5-52bc-5188-abb6-0fd612d7794a;Boots of Resistance;boots-of-resistance;700;/images/items/boots-of-resistance.png
+0d5c7a43-0a91-58f8-a126-672ca3148416;Boots of the Arcane;boots-of-the-arcane;700;/images/items/boots-of-the-arcane.png
+26726927-30cb-50e0-b6e2-1f379f563dca;Boots of Tranquility;boots-of-tranquility;700;/images/items/boots-of-tranquility.png
+3aa9a835-ca49-5aca-a829-78a2b1ca17ac;Breakthrough Robe;breakthrough-robe;2120;/images/items/breakthrough-robe.png
+3636a2bc-6a31-5481-a944-f6f0213a61f2;Clandestine Cape;clandestine-cape;800;/images/items/clandestine-cape.png
+2d1a2fac-7396-5df5-8832-2ca32bb9f106;Cloth Jerkin;cloth-jerkin;275;/images/items/cloth-jerkin.png
+9e4193d5-1649-5f77-80ad-cbe3ace2e783;Cloud Piercer;cloud-piercer;800;/images/items/cloud-piercer.png
+02e9392a-481b-5e87-910a-f9244e5179fe;Crimson Shadow;crimson-shadow;850;/images/items/crimson-shadow.png
+ed321cbe-bc42-56ac-90b7-1d282d6569d4;Crimson Shadow - Howl;crimson-shadow-howl;2080;/images/items/crimson-shadow-howl.png
+6146e0dc-7f74-5624-841b-3c1609f36f71;Crimson Shadow - Radiance;crimson-shadow-radiance;2080;/images/items/crimson-shadow-radiance.png
+02144936-c92c-5d85-aeb9-efd8e9e986e6;Crimson Shadow - Redemption;crimson-shadow-redemption;2080;/images/items/crimson-shadow-redemption.png
+69b85384-8468-5d8f-bd17-5cee98c7ae92;Crimson Shadow - Starspring;crimson-shadow-starspring;2080;/images/items/crimson-shadow-starspring.png
+a6e7ce26-c1fb-505b-b285-3cdbbd401c0b;Cuirass of Savagery;cuirass-of-savagery;2050;/images/items/cuirass-of-savagery.png
+dc274b07-514c-580e-a211-f47d62b0c28a;Cuirass of Swiftness;cuirass-of-swiftness;800;/images/items/cuirass-of-swiftness.png
+ab28641d-9bcb-55b6-ad7a-d490b0e07dc7;Dagger;dagger;300;/images/items/dagger.png
+0bf42e40-5b50-5c2c-b020-d57e0b151cb4;Dawnlight;dawnlight;2040;/images/items/dawnlight.png
+dbbbc653-d18f-5581-8547-d1cac2d1495a;Daybreaker's Virtue;daybreakers-virtue;2570;/images/items/daybreakers-virtue.png
+959117d8-67ba-5813-868d-9a3c7f6e1d4a;Deepfrost Siege;deepfrost-siege;2040;/images/items/deepfrost-siege.png
+e67c393e-bb9d-53a5-94a8-26a93bffd8c2;Demonsbane;demonsbane;2060;/images/items/demonsbane.png
+de23fe59-9f3d-5938-bb1c-f50adae91115;Destiny;destiny;2060;/images/items/destiny.png
+3e4d7051-c80d-5608-a742-823edd4734c0;Doomsday;doomsday;2100;/images/items/doomsday.png
+0c910f52-1b50-5d25-94b8-9d580f1ebaa3;Dragon's Rage;dragons-rage;2040;/images/items/dragons-rage.png
+1dc35c65-52ac-5554-bcd5-7553c41c3c05;Enigma - Moon Goddess;enigma-moon-goddess;3340;/images/items/enigma-moon-goddess.png
+9b126b18-fb31-50d0-96f9-37378a42aa24;Eternity Blade;eternity-blade;2110;/images/items/eternity-blade.png
+4a5fae1f-20fa-58f0-bdab-d19f2e89263e;Eye of the Phoenix;eye-of-the-phoenix;2020;/images/items/eye-of-the-phoenix.png
+0e8b00f3-35a5-59ad-bc99-d1084a7b6584;Frigid Charge;frigid-charge;2030;/images/items/frigid-charge.png
+7733a7c5-a936-5a91-93ca-c8dcaffddfe0;Frosthold Targe;frosthold-targe;750;/images/items/frosthold-targe.png
+2df167fb-14b1-5dfe-943d-f2a6e6bddfb3;Frostscar's Embrace;frostscars-embrace;2060;/images/items/frostscars-embrace.png
+0ef452e0-a64a-5560-9d08-8c14d2f9bd23;Frozen Breath;frozen-breath;2100;/images/items/frozen-breath.png
+1c603951-1b4d-59c6-a8d6-a99cf2ce55e0;Giant's Grip;giants-grip;2160;/images/items/giants-grip.png
+0f811129-2478-5c92-86c6-85fd506969e4;Glacial Buckler;glacial-buckler;2040;/images/items/glacial-buckler.png
+8169952d-480b-58c3-a885-2c29e1ad0ea9;Golden Blade;golden-blade;2070;/images/items/golden-blade.png
+8151653f-ef81-5d1f-9a18-f28a7383aa94;Grand Staff;grand-staff;820;/images/items/grand-staff.png
+908db748-b910-551d-a818-fddf4b92385b;Guardian;guardian;850;/images/items/guardian.png
+59e69d66-5e84-5112-84ce-68c47216bbf1;Guardian - Radiance;guardian-radiance;2080;/images/items/guardian-radiance.png
+ed7c3be1-1053-546a-b29e-a0c73fc22ce7;Guardian - Redemption;guardian-redemption;2080;/images/items/guardian-redemption.png
+e8806761-9ccc-5b0c-bf7f-227e54535bba;Guardian - Starspring;guardian-starspring;2080;/images/items/guardian-starspring.png
+04a397fc-dcc3-5126-8f07-304beb3907de;Guerrilla Machete;guerrilla-machete;700;/images/items/guerrilla-machete.png
+48375e01-b171-5c31-aa87-620decbe4d2a;Haste - Sunpool;haste-sunpool;3320;/images/items/haste-sunpool.png
+aad30f1b-2033-5cb1-9333-de797341acb1;Holy Grail;holy-grail;2020;/images/items/holy-grail.png
+289c61c0-cf2e-5a3c-aa52-957a789ac176;Hunting Knife;hunting-knife;250;/images/items/hunting-knife.png
+3ff2416f-4e16-5f28-b462-da1ffb594a40;Immovable - Sky Dome;immovable-sky-dome;3280;/images/items/immovable-sky-dome.png
+2ab42360-1517-5f8c-9f55-7587714aebca;Insatiable Tome;insatiable-tome;2060;/images/items/insatiable-tome.png
+4b2b56a5-e222-5301-8cc2-4ef35a48fc45;Iron Sword;iron-sword;275;/images/items/iron-sword.png
+079a3bb8-0f9f-51c2-852c-9e158d919da6;Knowledge Gem;knowledge-gem;300;/images/items/knowledge-gem.png
+9a699237-42a5-5560-ae8a-cc4e1480a51b;Lightfoot Shoes;lightfoot-shoes;250;/images/items/lightfoot-shoes.png
+7184c6ed-f774-567b-a758-a5000bfb8b40;Longnight Guardian;longnight-guardian;2020;/images/items/longnight-guardian.png
+76ca1f74-554a-5c8d-94d8-0e7ceaa7c4fd;Mask of Agony;mask-of-agony;2080;/images/items/mask-of-agony.png
+eb49f3b9-c33f-5248-abfb-69af4484eb85;Master Sword;master-sword;2100;/images/items/master-sword.png
+8eef532d-b652-549f-9aa0-3fd5a07bd27e;Meteor;meteor;760;/images/items/meteor.png
+3792110b-cc7a-551f-ac94-c611daecbad7;Mirror of Radiance;mirror-of-radiance;800;/images/items/mirror-of-radiance.png
+4379d3b0-9dcd-56c2-b47b-6bb5bbf766d9;Mortal Punisher;mortal-punisher;2080;/images/items/mortal-punisher.png
+7087b9c3-32e3-5c4c-9a0a-eca6ee55ad4b;Mystic Page;mystic-page;300;/images/items/mystic-page.png
+5d7ad525-e2c9-55c6-b721-0adbaaf7bd92;Nebulon Wood;nebulon-wood;840;/images/items/nebulon-wood.png
+fac2cc5e-446b-5a30-9ea9-405fbfba28eb;Nettle Gauntlet;nettle-gauntlet;750;/images/items/nettle-gauntlet.png
+8ed37edc-ad1c-5103-b6f5-b35c74a6a954;Ominous Premonition;ominous-premonition;2020;/images/items/ominous-premonition.png
+5b5cf1e9-102f-5b7a-93fb-167452891018;Overlord's Might;overlords-might;2540;/images/items/overlords-might.png
+e4318cf4-24c5-5422-b58b-cb508fabe3d1;Overlord's Platemail;overlords-platemail;2450;/images/items/overlords-platemail.png
+2554d713-c426-5156-9731-a510259e1b7b;Patrol Axe;patrol-axe;700;/images/items/patrol-axe.png
+ca2ca316-cbd6-59ad-a5f1-36a093a6ec91;Plume of Enchantment;plume-of-enchantment;300;/images/items/plume-of-enchantment.png
+c9590ce8-ab9e-5b7b-85e3-54989a9c87c7;Primordial Crystal;primordial-crystal;300;/images/items/primordial-crystal.png
+953c5297-dc6d-50b6-a097-abc973fb3239;Protector's Cuirass;protectors-cuirass;800;/images/items/protectors-cuirass.png
+994996a1-3f20-5d8c-8a10-62e5884b725d;Pugilist's Gauntlet;pugilists-gauntlet;300;/images/items/pugilists-gauntlet.png
+2d01d2be-0c7c-5aa7-a79e-d93514113d39;Pure Sky;pure-sky;2140;/images/items/pure-sky.png
+57ab5b14-6284-55b2-ad53-bb7468721d9f;Rapacious Bite;rapacious-bite;2160;/images/items/rapacious-bite.png
+eab0023a-4604-5df5-8baa-5a750b0f1e87;Ravage - Phantom;ravage-phantom;3350;/images/items/ravage-phantom.png
+c392b376-50c3-5b15-8834-810a07652036;Relentless Blade;relentless-blade;700;/images/items/relentless-blade.png
+87f54064-ff7b-556c-bf03-38628b6194cb;Resilient Agate;resilient-agate;300;/images/items/resilient-agate.png
+2263cae7-953b-5b2c-ac63-4ea49716147e;Runeblade;runeblade;2160;/images/items/runeblade.png
+3c8352c1-2a4e-5b01-ad8b-40029ee4371f;Sage's Codex;sages-codex;800;/images/items/sages-codex.png
+a7d8a7d5-5377-5892-a837-f2465e77006b;Sage's Sanctuary;sages-sanctuary;2280;/images/items/sages-sanctuary.png
+e408ec32-ceb9-55a3-b32f-54e87734090b;Sage's Tome;sages-tome;2610;/images/items/sages-tome.png
+1e3f5893-8421-5fe4-8c19-c36d78f292d9;Savant's Wrath;savants-wrath;2140;/images/items/savants-wrath.png
+022b620f-3c64-59e1-b926-50d0274a9bad;Scepter of Reverberation;scepter-of-reverberation;2100;/images/items/scepter-of-reverberation.png
+3dca124d-8ae0-57f0-9e89-13e088831d69;Shadow Ripper;shadow-ripper;2040;/images/items/shadow-ripper.png
+e05fe9f8-7e94-5bd6-a95e-835d633440dd;Sparkforged Dagger;sparkforged-dagger;2040;/images/items/sparkforged-dagger.png
+f93cd422-8e0b-5ea3-a550-bdc40f01ea95;Spell Tome;spell-tome;275;/images/items/spell-tome.png
+3c07e484-738d-5096-b443-329866f707e0;Spikemail;spikemail;2020;/images/items/spikemail.png
+37a5ca05-42af-5894-aa78-cf0c48793510;Splendor;splendor;2080;/images/items/splendor.png
+16f7705a-f200-57e1-93db-a9f8b93e10e9;Starbreaker;starbreaker;2080;/images/items/starbreaker.png
+b933e80d-ba35-5ab4-8129-a111120ed46a;Staves of Sorcery;staves-of-sorcery;2080;/images/items/staves-of-sorcery.png
+099608ec-9e52-52a3-873a-9be03697a1a6;Stone of Sorcery;stone-of-sorcery;800;/images/items/stone-of-sorcery.png
+3bf78e57-a620-5ade-a675-d3ba7c34587c;Storm Sword;storm-sword;850;/images/items/storm-sword.png
+b87da5e7-b126-5d3b-b1c5-a1f715a9740e;Succubus Cloak;succubus-cloak;2020;/images/items/succubus-cloak.png
+ee3976eb-8018-5895-87e7-8d24e7df1cd5;Sunchaser;sunchaser;2100;/images/items/sunchaser.png
+991e8d65-f391-55d2-885f-00520e01f890;Sunglow Striker;sunglow-striker;760;/images/items/sunglow-striker.png
+03edf6d7-428b-5143-8355-02c85623939d;Swiftstrike Lance;swiftstrike-lance;800;/images/items/swiftstrike-lance.png
+aefac9b7-f726-513a-9a28-d36b6fb9e734;Tempest;tempest;2080;/images/items/tempest.png
+4c15ef80-1afa-59ac-b953-c8ad61fb7479;Thunderclap Brand;thunderclap-brand;820;/images/items/thunderclap-brand.png
+961d28e0-e63f-5782-91c5-a33b510cc461;Twilight Stream;twilight-stream;2040;/images/items/twilight-stream.png
+37b69466-56a9-5f0b-a5a6-80accff4d61b;Twinblades of Destruction;twinblades-of-destruction;760;/images/items/twinblades-of-destruction.png
+e55d3038-ca6c-5299-bdc4-10820032142b;Vampiric Scythe;vampiric-scythe;300;/images/items/vampiric-scythe.png
+ec8e3fed-934f-5a65-82bb-54b685ca245d;Venomous Staff;venomous-staff;2040;/images/items/venomous-staff.png
+48b0d725-8efe-579e-8ccd-fb1ef70d4829;Void Staff;void-staff;2040;/images/items/void-staff.png
