@@ -1,11 +1,14 @@
 package com.hok_wiki.controller;
 
 import java.util.UUID;
+import java.util.List;
 
 import com.hok_wiki.dto.response.ArcanaView;
 import com.hok_wiki.dto.request.PageRequest;
 import com.hok_wiki.dto.response.PageView;
 import com.hok_wiki.service.ArcanaService;
+import com.hok_wiki.service.CatalogService;
+import com.hok_wiki.dto.response.CatalogArcanaView;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
@@ -26,6 +29,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ArcanaController {
 
 	private final ArcanaService arcanaService;
+
+	private final CatalogService catalogService;
+
+	@GetMapping("/catalog")
+	public ResponseEntity<List<CatalogArcanaView>> catalog() {
+		return ResponseEntity.ok(catalogService.findArcana());
+	}
 
 	@GetMapping
 	public ResponseEntity<PageView<ArcanaView>> findAll(@Valid @ModelAttribute PageRequest request) {

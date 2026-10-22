@@ -2,6 +2,7 @@ import { Buffer } from "node:buffer";
 
 const MAX_ATTACHMENT_SIZE = 5 * 1024 * 1024;
 const MAX_BASE64_LENGTH = Math.ceil(MAX_ATTACHMENT_SIZE / 3) * 4;
+const MAX_REQUEST_BYTES = 7 * 1024 * 1024;
 
 type FeedbackType = "SUGGESTION" | "BUG_REPORT" | "CONTENT_REPORT";
 
@@ -250,6 +251,45 @@ function feedbackEndpoint(): URL | null {
   }
 }
 
+async function readFeedbackBody(
+  request: Request,
+): Promise<{ input: unknown } | InvalidPayload> {
+  if (Number(request.headers.get("content-length")) > MAX_REQUEST_BYTES) {
+    await request.body?.cancel().catch(() => undefined);
+    return { message: "Ukuran masukan terlalu besar.", status: 413 };
+  }
+
+  const reader = request.body?.getReader();
+
+  if (!reader) {
+    return { message: "Data masukan harus berupa JSON yang valid.", status: 400 };
+  }
+
+  const chunks: Uint8Array[] = [];
+  let totalBytes = 0;
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      totalBytes += value.byteLength;
+      if (totalBytes > MAX_REQUEST_BYTES) {
+        return { message: "Ukuran masukan terlalu besar.", status: 413 };
+      }
+      chunks.push(value);
+    }
+
+    const body = new TextDecoder().decode(Buffer.concat(chunks, totalBytes));
+    return { input: JSON.parse(body) };
+  } catch {
+    return { message: "Data masukan harus berupa JSON yang valid.", status: 400 };
+  } finally {
+    await reader.cancel().catch(() => undefined);
+    reader.releaseLock();
+  }
+}
+
 export async function POST(request: Request): Promise<Response> {
   const endpoint = feedbackEndpoint();
 
@@ -276,18 +316,13 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  let input: unknown;
+  const body = await readFeedbackBody(request);
 
-  try {
-    input = await request.json();
-  } catch {
-    return Response.json(
-      { message: "Data masukan harus berupa JSON yang valid." },
-      { status: 400 },
-    );
+  if ("message" in body) {
+    return Response.json({ message: body.message }, { status: body.status });
   }
 
-  const result = validatePayload(input);
+  const result = validatePayload(body.input);
 
   if ("message" in result) {
     return Response.json({ message: result.message }, { status: result.status });

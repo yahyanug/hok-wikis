@@ -1,6 +1,8 @@
 package com.hok_wiki.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -23,6 +25,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.generator.EventType;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "hero")
@@ -37,6 +43,11 @@ public class Hero {
 	@Column(name = "id", nullable = false, updatable = false)
 	private UUID id;
 
+	@Setter(AccessLevel.NONE)
+	@Generated(event = EventType.INSERT)
+	@Column(name = "catalog_id", nullable = false, insertable = false, updatable = false)
+	private Long catalogId;
+
 	@Column(name = "name", nullable = false, length = 255)
 	private String name;
 
@@ -45,6 +56,17 @@ public class Hero {
 
 	@Column(name = "image_url", columnDefinition = "text")
 	private String imageUrl;
+
+	@Column(name = "description", nullable = false, columnDefinition = "text")
+	private String description = "";
+
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(name = "tags", nullable = false, columnDefinition = "jsonb")
+	private List<String> tags = new ArrayList<>();
+
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(name = "guide", nullable = false, columnDefinition = "jsonb")
+	private List<String> guide = new ArrayList<>();
 
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name = "hero_roles",

@@ -46,9 +46,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	private static final long LOGIN_LOCK_SECONDS = 900;
 
-	private static final String RECOVERY_MESSAGE =
-			"If the account exists, password reset instructions will be sent to its email address";
-
 	private final UserAccountRepository userAccountRepository;
 
 	private final UserTokenRepository userTokenRepository;
@@ -65,7 +62,30 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	private final AuthProperties properties;
 
-	private final PasswordResetMailService passwordResetMailService;
+	@Override
+	@Transactional(readOnly = true)
+	public AccountView getCurrentAccount(UUID accountId) {
+		UserAccount account = userAccountRepository.findById(accountId)
+				.filter(UserAccount::isEnabled)
+				.orElseThrow(() -> new BusinessException(AuthErrorCodeEnum.INVALID_TOKEN));
+		return mapStructConverter.toView(account);
+	}
+
+	@Override
+	@Transactional
+	public MessageResponse logout(UUID accountId, UUID tokenId) {
+		if (tokenId == null) {
+			throw new BusinessException(AuthErrorCodeEnum.INVALID_TOKEN);
+		}
+		userAccountRepository.findForUpdateById(accountId)
+				.orElseThrow(() -> new BusinessException(AuthErrorCodeEnum.INVALID_TOKEN));
+		UserToken token = userTokenRepository.findForUpdateByIdAndAccountId(tokenId, accountId)
+				.orElseThrow(() -> new BusinessException(AuthErrorCodeEnum.INVALID_TOKEN));
+		if (token.getRevokedAt() == null) {
+			token.setRevokedAt(Instant.now());
+		}
+		return new MessageResponse("Logged out successfully");
+	}
 
 	@Override
 	@Transactional
@@ -147,30 +167,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	}
 
 	@Override
-	@Transactional
 	public MessageResponse forgotPassword(ForgotPasswordRequest request) {
-		passwordResetMailService.ensureConfigured();
-		UserAccount account = userAccountRepository.findForUpdateByEmail(normalizeIdentifier(request.email()))
-				.orElse(null);
-		if (account == null || !account.isEnabled()) {
-			return new MessageResponse(RECOVERY_MESSAGE);
-		}
-		Instant now = Instant.now();
-		boolean recentlyRequested = passwordResetTokenRepository.findFirstByAccountIdOrderByCreatedAtDesc(account.getId())
-				.map(token -> token.getCreatedAt().isAfter(now.minusSeconds(60))).orElse(false);
-		if (recentlyRequested) {
-			return new MessageResponse(RECOVERY_MESSAGE);
-		}
-		passwordResetTokenRepository.consumeAllByAccountId(account.getId(), now);
-		String rawToken = tokenProvider.createOpaqueToken();
-		PasswordResetToken reset = new PasswordResetToken();
-		reset.setAccount(account);
-		reset.setTokenHash(tokenProvider.hashToken(rawToken));
-		reset.setExpiresAt(now.plusSeconds(properties.getPasswordResetValidityInSeconds()));
-		reset.setCreatedAt(now);
-		passwordResetTokenRepository.saveAndFlush(reset);
-		passwordResetMailService.send(account.getEmail(), rawToken, reset.getExpiresAt());
-		return new MessageResponse(RECOVERY_MESSAGE);
+		throw new BusinessException(AuthErrorCodeEnum.PASSWORD_RESET_UNAVAILABLE);
 	}
 
 	@Override

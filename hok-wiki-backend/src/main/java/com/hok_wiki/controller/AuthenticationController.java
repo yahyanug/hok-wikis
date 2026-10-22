@@ -11,6 +11,7 @@ import com.hok_wiki.dto.response.AuthenticationResponse;
 import com.hok_wiki.dto.response.MessageResponse;
 import com.hok_wiki.security.AccountPrincipal;
 import com.hok_wiki.service.AuthenticationService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +34,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
 	private final AuthenticationService authenticationService;
+
+	@GetMapping("/me")
+	@SecurityRequirement(name = "bearerAuth")
+	public ResponseEntity<AccountView> currentAccount(@AuthenticationPrincipal AccountPrincipal principal) {
+		return ResponseEntity.ok().cacheControl(CacheControl.noStore())
+				.body(authenticationService.getCurrentAccount(principal.getId()));
+	}
+
+	@PostMapping("/logout")
+	@SecurityRequirement(name = "bearerAuth")
+	public ResponseEntity<MessageResponse> logout(@AuthenticationPrincipal AccountPrincipal principal) {
+		return ResponseEntity.ok().cacheControl(CacheControl.noStore())
+				.body(authenticationService.logout(principal.getId(), principal.getTokenId()));
+	}
 
 	@PostMapping("/register")
 	public ResponseEntity<AccountView> register(@Valid @RequestBody RegisterRequest request) {
@@ -64,6 +80,7 @@ public class AuthenticationController {
 	}
 
 	@PostMapping("/change-password")
+	@SecurityRequirement(name = "bearerAuth")
 	public ResponseEntity<MessageResponse> changePassword(@AuthenticationPrincipal AccountPrincipal principal,
 			@Valid @RequestBody ChangePasswordRequest request) {
 		return ResponseEntity.ok().cacheControl(CacheControl.noStore())

@@ -1,5 +1,7 @@
 package com.hok_wiki.domain;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -12,6 +14,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "arcana")
@@ -43,5 +47,19 @@ public class Arcana {
 
 	@Column(name = "image_url", columnDefinition = "text")
 	private String imageUrl;
+
+	@Column(name = "description", nullable = false, columnDefinition = "text")
+	private String description = "";
+
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(name = "attributes", nullable = false, columnDefinition = "jsonb")
+	private List<ResourceAttribute> attributes = new ArrayList<>();
+
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(name = "tips", nullable = false, columnDefinition = "jsonb")
+	private List<String> tips = new ArrayList<>();
+
+	@Column(name = "explanation", nullable = false, columnDefinition = "text")
+	private String explanation = "";
 
 }

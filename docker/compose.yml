@@ -1,0 +1,133 @@
+name: hok-wiki
+
+x-service-defaults: &service-defaults
+  restart: unless-stopped
+  logging:
+    driver: local
+    options:
+      max-size: "10m"
+      max-file: "3"
+
+services:
+  postgres:
+    <<: *service-defaults
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB:-hok-wiki}"
+      POSTGRES_USER: "${POSTGRES_USER:-user123}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    stop_grace_period: 30s
+
+  redis:
+    <<: *service-defaults
+    image: redis:8-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    networks:
+      - data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    <<: *service-defaults
+    image: hok-wiki-backend:local
+    build:
+      context: ..
+      dockerfile: docker/backend/Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: "${SPRING_PROFILES_ACTIVE:-prod}"
+      SERVER_ADDRESS: 0.0.0.0
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres:5432/${POSTGRES_DB:-hok-wiki}"
+      SPRING_DATASOURCE_USERNAME: "${POSTGRES_USER:-user123}"
+      SPRING_DATASOURCE_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}"
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: "6379"
+      SPRING_LIQUIBASE_CONTEXTS: "${LIQUIBASE_CONTEXTS:-prod}"
+      JWT_BASE64_SECRET: "${JWT_BASE64_SECRET:?Set JWT_BASE64_SECRET in .env (Base64 of at least 64 random bytes)}"
+      JWT_ISSUER: "${JWT_ISSUER:-hok-wiki}"
+      ADMIN_BOOTSTRAP_EMAIL: "${ADMIN_BOOTSTRAP_EMAIL:-}"
+      ADMIN_BOOTSTRAP_PASSWORD: "${ADMIN_BOOTSTRAP_PASSWORD:-}"
+      ADMIN_BOOTSTRAP_FULL_NAME: "${ADMIN_BOOTSTRAP_FULL_NAME:-}"
+    mem_limit: "${BACKEND_MEMORY_LIMIT:-1g}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - application
+      - data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8080/actuator/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 120s
+    stop_grace_period: 30s
+
+  frontend:
+    <<: *service-defaults
+    image: hok-wiki-frontend:local
+    build:
+      context: ..
+      dockerfile: docker/frontend/Dockerfile
+    init: true
+    environment:
+      # Server-only BFF URL; never expose this through NEXT_PUBLIC_*.
+      BACKEND_API_BASE_URL: http://backend:8080/api
+    mem_limit: "${FRONTEND_MEMORY_LIMIT:-512m}"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - edge
+      - application
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/').then(response => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  cloudflared:
+    <<: *service-defaults
+    image: cloudflare/cloudflared:2026.10.1
+    command: ["tunnel", "--no-autoupdate", "run"]
+    environment:
+      # Required only when starting the tunnel, not for local PostgreSQL/Redis.
+      # Published application service URL in Cloudflare: http://frontend:3000.
+      TUNNEL_TOKEN: "${CLOUDFLARE_TUNNEL_TOKEN:-}"
+    depends_on:
+      frontend:
+        condition: service_healthy
+    networks:
+      - edge
+    stop_grace_period: 35s
+
+networks:
+  edge:
+  application:
+  data:
+    internal: true
+
+volumes:
+  postgres_data:
+  redis_data:

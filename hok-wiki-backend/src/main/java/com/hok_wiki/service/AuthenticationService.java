@@ -14,6 +14,10 @@ import com.hok_wiki.dto.response.MessageResponse;
 
 public interface AuthenticationService {
 
+	AccountView getCurrentAccount(UUID accountId);
+
+	MessageResponse logout(UUID accountId, UUID tokenId);
+
 	AccountView register(RegisterRequest request);
 
 	AuthenticationResponse login(LoginRequest request);

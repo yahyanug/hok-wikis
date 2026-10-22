@@ -1,11 +1,16 @@
 package com.hok_wiki.controller;
 
+import java.util.List;
+
 import com.hok_wiki.constant.HeroLane;
 import com.hok_wiki.constant.HeroRole;
 import com.hok_wiki.dto.response.HeroPage;
 import com.hok_wiki.dto.request.HeroSearchCriteria;
 import com.hok_wiki.dto.response.HeroView;
 import com.hok_wiki.dto.request.PageRequest;
+import com.hok_wiki.dto.request.HeroListRequest;
+import com.hok_wiki.dto.response.CatalogHeroView;
+import com.hok_wiki.service.CatalogService;
 import com.hok_wiki.service.HeroService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name="01-heroes")
@@ -27,6 +33,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class HeroController {
 
 	private final HeroService heroService;
+
+	private final CatalogService catalogService;
+
+	@GetMapping
+	public ResponseEntity<HeroPage> findAll(@Valid @ModelAttribute HeroListRequest request) {
+		return ResponseEntity.ok(heroService.findHeroes(request.toCriteria()));
+	}
+
+	@GetMapping("/catalog")
+	public ResponseEntity<List<CatalogHeroView>> catalog(@RequestParam(value = "role", required = false) HeroRole role,
+			@RequestParam(value = "lane", required = false) HeroLane lane) {
+		return ResponseEntity.ok(catalogService.findHeroes(role, lane));
+	}
 
 	@GetMapping("/{slug}")
 	public ResponseEntity<HeroView> findBySlug(@PathVariable("slug") @Size(min = 1, max = 128) String slug) {

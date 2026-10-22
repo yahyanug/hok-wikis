@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+		logicalFilePath="liquibase/changelog/catalog/010-add-catalog-content.xml"
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+	<changeSet id="catalog-010-add-catalog-content" author="dev-yahya">
+		<sql>
+			ALTER TABLE hero ADD COLUMN catalog_id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL;
+			ALTER TABLE hero ADD CONSTRAINT uk_hero_catalog_id UNIQUE (catalog_id);
+			ALTER TABLE hero ADD CONSTRAINT chk_hero_catalog_id
+				CHECK (catalog_id BETWEEN 1 AND 9007199254740991);
+		</sql>
+
+		<addColumn tableName="hero">
+			<column name="description" type="text" defaultValue="">
+				<constraints nullable="false"/>
+			</column>
+			<column name="tags" type="jsonb" defaultValueComputed="'[]'::jsonb">
+				<constraints nullable="false"/>
+			</column>
+			<column name="guide" type="jsonb" defaultValueComputed="'[]'::jsonb">
+				<constraints nullable="false"/>
+			</column>
+			<column name="image_position" type="varchar(128)"/>
+		</addColumn>
+
+		<addColumn tableName="item">
+			<column name="category" type="varchar(32)"/>
+			<column name="description" type="text" defaultValue="">
+				<constraints nullable="false"/>
+			</column>
+			<column name="attributes" type="jsonb" defaultValueComputed="'[]'::jsonb">
+				<constraints nullable="false"/>
+			</column>
+			<column name="effects" type="jsonb" defaultValueComputed="'[]'::jsonb">
+				<constraints nullable="false"/>
+			</column>
+			<column name="builds_from" type="jsonb" defaultValueComputed="'[]'::jsonb">
+				<constraints nullable="false"/>
+			</column>
+			<column name="tips" type="jsonb" defaultValueComputed="'[]'::jsonb">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<addColumn tableName="arcana">
+			<column name="description" type="text" defaultValue="">
+				<constraints nullable="false"/>
+			</column>
+			<column name="explanation" type="text" defaultValue="">
+				<constraints nullable="false"/>
+			</column>
+			<column name="attributes" type="jsonb" defaultValueComputed="'[]'::jsonb">
+				<constraints nullable="false"/>
+			</column>
+			<column name="tips" type="jsonb" defaultValueComputed="'[]'::jsonb">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<addColumn tableName="spells">
+			<column name="usage_tip" type="text" defaultValue="">
+				<constraints nullable="false"/>
+			</column>
+			<column name="attributes" type="jsonb" defaultValueComputed="'[]'::jsonb">
+				<constraints nullable="false"/>
+			</column>
+			<column name="tips" type="jsonb" defaultValueComputed="'[]'::jsonb">
+				<constraints nullable="false"/>
+			</column>
+		</addColumn>
+
+		<sql>
+			ALTER TABLE hero ADD CONSTRAINT chk_hero_content_arrays
+				CHECK (jsonb_typeof(tags) = 'array' AND jsonb_typeof(guide) = 'array');
+			ALTER TABLE item ADD CONSTRAINT chk_item_category
+				CHECK (category IN ('ATTACK', 'MAGIC', 'DEFENSE', 'MOVEMENT', 'JUNGLING', 'ROAMING'));
+			ALTER TABLE item ADD CONSTRAINT chk_item_content_arrays
+				CHECK (jsonb_typeof(attributes) = 'array' AND jsonb_typeof(effects) = 'array'
+					AND jsonb_typeof(builds_from) = 'array' AND jsonb_typeof(tips) = 'array');
+			ALTER TABLE arcana ADD CONSTRAINT chk_arcana_content_arrays
+				CHECK (jsonb_typeof(attributes) = 'array' AND jsonb_typeof(tips) = 'array');
+			ALTER TABLE spells ADD CONSTRAINT chk_spells_content_arrays
+				CHECK (jsonb_typeof(attributes) = 'array' AND jsonb_typeof(tips) = 'array');
+		</sql>
+
+		<rollback>
+			<dropUniqueConstraint tableName="hero" constraintName="uk_hero_catalog_id"/>
+			<sql>
+				ALTER TABLE hero DROP CONSTRAINT chk_hero_catalog_id;
+				ALTER TABLE hero DROP CONSTRAINT chk_hero_content_arrays;
+				ALTER TABLE item DROP CONSTRAINT chk_item_category;
+				ALTER TABLE item DROP CONSTRAINT chk_item_content_arrays;
+				ALTER TABLE arcana DROP CONSTRAINT chk_arcana_content_arrays;
+				ALTER TABLE spells DROP CONSTRAINT chk_spells_content_arrays;
+			</sql>
+			<dropColumn tableName="spells" columnName="tips"/>
+			<dropColumn tableName="spells" columnName="attributes"/>
+			<dropColumn tableName="spells" columnName="usage_tip"/>
+			<dropColumn tableName="arcana" columnName="tips"/>
+			<dropColumn tableName="arcana" columnName="attributes"/>
+			<dropColumn tableName="arcana" columnName="explanation"/>
+			<dropColumn tableName="arcana" columnName="description"/>
+			<dropColumn tableName="item" columnName="tips"/>
+			<dropColumn tableName="item" columnName="builds_from"/>
+			<dropColumn tableName="item" columnName="effects"/>
+			<dropColumn tableName="item" columnName="attributes"/>
+			<dropColumn tableName="item" columnName="description"/>
+			<dropColumn tableName="item" columnName="category"/>
+			<dropColumn tableName="hero" columnName="image_position"/>
+			<dropColumn tableName="hero" columnName="guide"/>
+			<dropColumn tableName="hero" columnName="tags"/>
+			<dropColumn tableName="hero" columnName="description"/>
+			<dropColumn tableName="hero" columnName="catalog_id"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>

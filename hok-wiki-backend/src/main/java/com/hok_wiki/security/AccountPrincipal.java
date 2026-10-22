@@ -15,6 +15,8 @@ public final class AccountPrincipal implements UserDetails {
 
 	private final UUID id;
 
+	private final UUID tokenId;
+
 	private final String email;
 
 	private final String passwordHash;
@@ -26,7 +28,12 @@ public final class AccountPrincipal implements UserDetails {
 	private final Instant loginBlockedUntil;
 
 	public AccountPrincipal(UserAccount account) {
+		this(account, null);
+	}
+
+	public AccountPrincipal(UserAccount account, UUID tokenId) {
 		this.id = account.getId();
+		this.tokenId = tokenId;
 		this.email = account.getEmail();
 		this.passwordHash = account.getPasswordHash();
 		this.userType = account.getUserType();
@@ -36,6 +43,10 @@ public final class AccountPrincipal implements UserDetails {
 
 	public UUID getId() {
 		return id;
+	}
+
+	public UUID getTokenId() {
+		return tokenId;
 	}
 
 	public UserType getUserType() {

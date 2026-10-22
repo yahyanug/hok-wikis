@@ -16,7 +16,7 @@ public enum HeroRole {
 	}
 
 	public String getImageUrl() {
-		return "/images/roles/" + getSlug() + ".png";
+		return "/images/role/" + getSlug() + ".png";
 	}
 
 }

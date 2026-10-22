@@ -82,7 +82,7 @@ public class JWTFilter extends OncePerRequestFilter {
 			throw new JwtException("Invalid access token");
 		}
 
-		AccountPrincipal principal = new AccountPrincipal(token.getAccount());
+		AccountPrincipal principal = new AccountPrincipal(token.getAccount(), token.getId());
 		UsernamePasswordAuthenticationToken authentication = UsernamePasswordAuthenticationToken
 				.authenticated(principal, null, principal.getAuthorities());
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

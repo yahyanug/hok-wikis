@@ -20,19 +20,12 @@ public class AuthProperties {
 	private String issuer = "hok-wiki";
 
 	@Min(60)
-	private long tokenValidityInSeconds = 900;
+	private long tokenValidityInSeconds = 3600;
 
 	@Min(60)
 	private long refreshTokenValidityInSeconds = 604800;
 
 	@Min(60)
 	private long rememberMeRefreshTokenValidityInSeconds = 2592000;
-
-	@Min(60)
-	private long passwordResetValidityInSeconds = 900;
-
-	private String resetPasswordUrl = "";
-
-	private String mailFrom = "";
 
 }

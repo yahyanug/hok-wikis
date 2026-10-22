@@ -9,9 +9,12 @@
 	</preConditions>
 
 	<!-- Superseded catalog changelogs remain on disk for history; they reference retired UUID datasets. -->
-	<include file="changelog/identity/005-create-identity-tables.xml" relativeToChangelogFile="true"/>
-	<include file="changelog/catalog/008-current-catalog-schema.xml" relativeToChangelogFile="true"/>
-	<include file="changelog/hero/009-align-hero-classification-schema.xml" relativeToChangelogFile="true"/>
-	<!-- Datasets are loaded only after the current schema and any legacy relations have been aligned. -->
-	<include file="changelog/catalog/007-load-enum-datasets.xml" relativeToChangelogFile="true"/>
+	<include file="changelog/005-hero_create_identity_tables_19102026.xml" relativeToChangelogFile="true"/>
+	<include file="changelog/008-hero_current_catalog_schema_19102026.xml" relativeToChangelogFile="true"/>
+	<include file="changelog/009-hero_align_hero_classification_schema_19102026.xml" relativeToChangelogFile="true"/>
+	<include file="changelog/010-hero_add_catalog_content_19102026.xml" relativeToChangelogFile="true"/>
+	<include file="changelog/011-hero_align_frontend_resource_data_19102026.xml" relativeToChangelogFile="true"/>
+	<include file="changelog/012-hero_create_feedback_table_19102026.xml" relativeToChangelogFile="true"/>
+	<!-- Initial datasets are optional and include the current frontend metadata after loading. -->
+	<include file="changelog/013-hero_load_frontend_datasets_19102026.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

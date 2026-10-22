@@ -16,7 +16,7 @@ public class HeroClassificationConfiguration implements WebMvcConfigurer {
 		registry.addConverter(String.class, HeroRole.class,
 				value -> HeroRole.valueOf(value.strip().toUpperCase(Locale.ROOT)));
 		registry.addConverter(String.class, HeroLane.class,
-				value -> HeroLane.valueOf(value.strip().toUpperCase(Locale.ROOT)));
+				HeroLane::fromValue);
 	}
 
 }

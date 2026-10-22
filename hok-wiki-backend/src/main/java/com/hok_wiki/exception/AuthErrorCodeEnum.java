@@ -15,7 +15,7 @@ public enum AuthErrorCodeEnum implements ExceptionEnum {
 	INVALID_PASSWORD("AUTH0007", HttpStatus.BAD_REQUEST,
 			"Password must contain 12 to 72 characters and at most 72 UTF-8 bytes"),
 	PASSWORD_RESET_UNAVAILABLE("AUTH0008", HttpStatus.SERVICE_UNAVAILABLE,
-			"Password recovery is temporarily unavailable"),
+			"Password recovery is unavailable because no recovery channel is configured"),
 	ACCOUNT_LOCKED("AUTH0009", HttpStatus.TOO_MANY_REQUESTS,
 			"Too many failed login attempts. Please try again later");
 

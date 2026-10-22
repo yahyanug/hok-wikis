@@ -58,10 +58,13 @@ public class SecurityConfiguration {
 						.requestMatchers(HttpMethod.POST, "/api/auth/login", "/api/auth/register",
 								"/api/auth/forgot-password", "/api/auth/reset-password", "/api/auth/refresh-token",
 								"/refresh-token").permitAll()
-						.requestMatchers(HttpMethod.POST, "/api/auth/change-password").authenticated()
+						.requestMatchers(HttpMethod.POST, "/api/feedback").permitAll()
+						.requestMatchers(HttpMethod.GET, "/api/auth/me").authenticated()
+						.requestMatchers(HttpMethod.POST, "/api/auth/change-password", "/api/auth/logout").authenticated()
 						.requestMatchers(HttpMethod.GET, "/api/heroes/**", "/api/items/**", "/api/arcana/**",
 								"/api/spells/**", "/api/lanes/**", "/api/roles/**", "/actuator/health").permitAll()
-						.requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+						.requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs", "/v3/api-docs/**",
+								"/v3/api-docs.yaml").permitAll()
 						.anyRequest().denyAll())
 				.addFilterBefore(new JWTFilter(tokenProvider, userTokenRepository, securityErrorHandler),
 						UsernamePasswordAuthenticationFilter.class);

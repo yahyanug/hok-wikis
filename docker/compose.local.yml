@@ -1,0 +1,34 @@
+# Local access only. Combine with compose.yml; do not use for public ingress.
+# IDE backend prerequisites:
+# Run from the docker directory:
+# docker compose -f compose.yml -f compose.local.yml up -d postgres redis
+services:
+  postgres:
+    networks:
+      - data
+      - local_access
+    ports:
+      - "127.0.0.1:5432:5432"
+  redis:
+    networks:
+      - data
+      - local_access
+    ports:
+      - "127.0.0.1:6379:6379"
+  backend:
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      SPRING_LIQUIBASE_CONTEXTS: "${LOCAL_LIQUIBASE_CONTEXTS:-local,dataset}"
+      ADMIN_BOOTSTRAP_EMAIL: "${ADMIN_BOOTSTRAP_EMAIL:-admin@hok-wiki.local}"
+      ADMIN_BOOTSTRAP_PASSWORD: "${ADMIN_BOOTSTRAP_PASSWORD:-password12345}"
+      ADMIN_BOOTSTRAP_FULL_NAME: "${ADMIN_BOOTSTRAP_FULL_NAME:-Local Admin}"
+    ports:
+      - "127.0.0.1:8080:8080"
+  frontend:
+    ports:
+      - "127.0.0.1:3000:3000"
+
+networks:
+  # Docker does not publish host ports for services on an internal-only network.
+  # This bridge enables the loopback bindings above for local IDE/Swagger testing.
+  local_access:

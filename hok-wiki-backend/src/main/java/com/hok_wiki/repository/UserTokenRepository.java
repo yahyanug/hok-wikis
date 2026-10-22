@@ -26,6 +26,10 @@ public interface UserTokenRepository extends JpaRepository<UserToken, UUID> {
 	@Query("select token from UserToken token where token.refreshTokenHash = :hash")
 	Optional<UserToken> findForUpdateByRefreshTokenHash(@Param("hash") String hash);
 
+	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	@Query("select token from UserToken token where token.id = :id and token.account.id = :accountId")
+	Optional<UserToken> findForUpdateByIdAndAccountId(@Param("id") UUID id, @Param("accountId") UUID accountId);
+
 	@Modifying(flushAutomatically = true)
 	@Query("""
 			update UserToken token set token.revokedAt = :revokedAt
