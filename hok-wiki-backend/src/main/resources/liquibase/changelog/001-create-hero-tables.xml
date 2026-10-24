@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="hero-001-create-hero-and-classifications" author="dev-yahya">
+        <createTable tableName="hero">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_hero"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="varchar(128)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_hero_slug"/>
+            </column>
+            <column name="image_url" type="text"/>
+            <column name="description" type="text" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tags" type="jsonb" defaultValueComputed="'[]'::jsonb">
+                <constraints nullable="false"/>
+            </column>
+            <column name="guide" type="jsonb" defaultValueComputed="'[]'::jsonb">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(100)" defaultValue="sys-admin">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_modified_by" type="varchar(100)"/>
+        </createTable>
+        <createIndex tableName="hero" indexName="idx_hero_name_slug">
+            <column name="name"/>
+            <column name="slug"/>
+        </createIndex>
+
+        <createTable tableName="hero_roles">
+            <column name="hero_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint tableName="hero_roles" columnNames="hero_id,role" constraintName="uk_hero_roles"/>
+        <addForeignKeyConstraint baseTableName="hero_roles" baseColumnNames="hero_id"
+                referencedTableName="hero" referencedColumnNames="id"
+                constraintName="fk_hero_roles_hero" onDelete="CASCADE"/>
+        <createIndex tableName="hero_roles" indexName="idx_hero_roles_role_hero">
+            <column name="role"/>
+            <column name="hero_id"/>
+        </createIndex>
+
+        <createTable tableName="hero_lanes">
+            <column name="hero_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lane" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint tableName="hero_lanes" columnNames="hero_id,lane" constraintName="uk_hero_lanes"/>
+        <addForeignKeyConstraint baseTableName="hero_lanes" baseColumnNames="hero_id"
+                referencedTableName="hero" referencedColumnNames="id"
+                constraintName="fk_hero_lanes_hero" onDelete="CASCADE"/>
+        <createIndex tableName="hero_lanes" indexName="idx_hero_lanes_lane_hero">
+            <column name="lane"/>
+            <column name="hero_id"/>
+        </createIndex>
+
+        <sql>
+            ALTER TABLE hero ADD CONSTRAINT chk_hero_content_arrays
+                CHECK (jsonb_typeof(tags) = 'array' AND jsonb_typeof(guide) = 'array');
+            ALTER TABLE hero_roles ADD CONSTRAINT chk_hero_roles_role
+                CHECK (role IN ('FIGHTER', 'ASSASSIN', 'MAGE', 'MARKSMAN', 'TANK', 'SUPPORT'));
+            ALTER TABLE hero_lanes ADD CONSTRAINT chk_hero_lanes_lane
+                CHECK (lane IN ('CLASH', 'JUNGLE', 'MID', 'FARM', 'ROAM'));
+        </sql>
+
+        <rollback>
+            <dropTable tableName="hero_lanes"/>
+            <dropTable tableName="hero_roles"/>
+            <dropTable tableName="hero"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

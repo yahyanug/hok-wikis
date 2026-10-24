@@ -33,7 +33,7 @@ public interface HeroRepository extends JpaRepository<Hero, UUID> {
 			))
 			""";
 
-	@Query(value = "select hero.id from Hero hero " + FILTERS + " order by hero.name, hero.slug",
+	@Query(value = "select hero.id from Hero hero " + FILTERS,
 			countQuery = "select count(hero) from Hero hero " + FILTERS)
 	Page<UUID> findPageIds(@Param("role") HeroRole role, @Param("lane") HeroLane lane, Pageable pageable);
 
@@ -42,7 +42,6 @@ public interface HeroRepository extends JpaRepository<Hero, UUID> {
 			left join fetch hero.roles
 			left join fetch hero.lanes
 			where hero.id in :ids
-			order by hero.name, hero.slug
 			""")
 	List<Hero> findAllWithRolesAndLanes(@Param("ids") Collection<UUID> ids);
 

@@ -26,7 +26,7 @@ function ArcanaDetails({ entry }: { entry: CatalogArcana }) {
 
           {entry.attributes.length > 0 && (
             <section className="border-t border-primary/25 pt-4">
-              <h3 className="mb-3 font-serif text-xl font-semibold text-primary">Atribut</h3>
+              <h3 className="mb-3 font-serif text-xl font-semibold text-primary">Stats</h3>
               <dl className="space-y-3">
                 {entry.attributes.map((attribute, index) => (
                   <div key={`${attribute.label}-${index}`} className="rounded-lg border border-border bg-background/40 px-4 py-3">
@@ -46,10 +46,6 @@ function ArcanaDetails({ entry }: { entry: CatalogArcana }) {
             </section>
           )}
 
-          <section className="border-t border-primary/25 pt-4">
-            <h3 className="mb-2 font-serif text-xl font-semibold text-primary">Penjelasan</h3>
-            <p className="text-sm leading-7 text-foreground">{entry.explanation}</p>
-          </section>
 
           {entry.tips.length > 0 && (
             <section className="rounded-xl border border-primary/25 bg-background/45 p-4">
@@ -90,7 +86,7 @@ export function ArcanaCatalog({ arcana }: ArcanaCatalogProps) {
                   <span className="block text-center">
                     <span className={`mt-2 inline-flex rounded-full border px-3 py-0.5 text-xs font-medium ${arcanaColorClasses[entry.color]}`}>{arcanaColorLabels[entry.color]}</span>
                   </span>
-                  <span className="mt-3 block text-xs font-semibold text-primary">Atribut</span>
+                  <span className="mt-3 block text-xs font-semibold text-primary">Stats</span>
                   <span className="mt-2 block space-y-2">
                     {entry.attributes.map((attribute, index) => (
                       <span key={`${attribute.label}-${index}`} className="flex items-start gap-2 text-xs leading-5 text-foreground/90">
@@ -100,10 +96,6 @@ export function ArcanaCatalog({ arcana }: ArcanaCatalogProps) {
                     ))}
                   </span>
                 </span>
-              </span>
-              <span className="mt-auto block w-full border-t border-primary/25 pt-3">
-                <span className="mb-1 block text-xs font-semibold text-primary">Penjelasan</span>
-                <span className="block text-xs leading-6 text-foreground/90">{entry.explanation}</span>
               </span>
             </button>
           ))}

@@ -25,9 +25,4 @@ public class FeedbackController {
 				.body(feedbackService.create(request));
 	}
 
-//	@GetMapping
-//	public ResponseEntity<List<FeedbackPageViewOnlyReturnListAndStatus> getList(Pagination pagination) {
-//		return ResponseEntity.ok(feedbackService.getList());
-//	}
-
 }

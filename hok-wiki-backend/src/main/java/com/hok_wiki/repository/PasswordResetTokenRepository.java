@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface PasswordResetTokenRepository extends JpaRepository<PasswordResetToken, UUID> {
 
-	Optional<PasswordResetToken> findFirstByAccountIdOrderByCreatedAtDesc(UUID accountId);
+	Optional<PasswordResetToken> findFirstByAccountIdOrderByCreatedDateDesc(UUID accountId);
 
 	@Query("select token.account.id from PasswordResetToken token where token.tokenHash = :hash")
 	Optional<UUID> findAccountIdByTokenHash(@Param("hash") String hash);

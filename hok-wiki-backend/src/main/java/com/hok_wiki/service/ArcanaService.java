@@ -1,25 +1,25 @@
 package com.hok_wiki.service;
 
-import java.util.UUID;
-
 import com.hok_wiki.dto.request.ArcanaRequest;
-
 import com.hok_wiki.dto.response.ArcanaView;
-import com.hok_wiki.dto.request.PageRequest;
-import com.hok_wiki.dto.response.PageView;
+import com.hok_wiki.dto.response.CatalogArcanaView;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+import java.util.UUID;
 
 public interface ArcanaService {
 
-	PageView<ArcanaView> findAll(PageRequest request);
+    List<CatalogArcanaView> findAll(Pageable pageable);
 
-	ArcanaView findBySlug(String slug);
+    ArcanaView findBySlug(String slug);
 
-	ArcanaView findById(UUID id);
+    ArcanaView findById(UUID id);
 
-	ArcanaView create(ArcanaRequest request);
+    ArcanaView create(ArcanaRequest request);
 
-	ArcanaView update(UUID id, ArcanaRequest request);
+    ArcanaView update(UUID id, ArcanaRequest request);
 
-	void delete(UUID id);
+    void delete(UUID id);
 
 }

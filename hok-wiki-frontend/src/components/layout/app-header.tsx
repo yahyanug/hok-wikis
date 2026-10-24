@@ -16,8 +16,9 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 
 const mainItems = [
-  { label: "News", href: "/news" },
+  // { label: "News", href: "/news" },
   { label: "Matchups", href: "/matchups" },
+  { label: "Draft Simulator", href: "/draft-simulator" },
 ];
 
 const resourceItems = [

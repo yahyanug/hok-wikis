@@ -17,20 +17,16 @@ public record ItemRequest(
 		@JsonAlias("price") @NotNull @PositiveOrZero Integer priceGold,
 		@JsonAlias("image") @Size(max = 2048) String imageUrl,
 		@NotNull ItemCategory category,
-		@Size(max = 8000) String description,
-		@Size(max = 30) List<@NotNull @Valid ResourceAttributeRequest> attributes,
-		@Size(max = 30) List<@NotNull @Valid ResourceEffectRequest> effects,
-		@Size(max = 50) List<@NotBlank @Size(max = 255) String> buildsFrom,
-		@Size(max = 50) List<@NotBlank @Size(max = 8000) String> tips) {
+		@Size(max = 30) List<@NotNull @Valid ResourceEffectRequest> stats,
+		@Size(max = 30) List<@NotNull @Valid ResourceEffectRequest> passive,
+		@Size(max = 50) List<@NotBlank @Size(max = 255) String> buildsFrom) {
 
 	public ItemRequest {
 		name = name == null ? null : name.strip();
 		slug = slug == null ? null : slug.strip();
-		description = description == null ? "" : description.strip();
-		attributes = attributes == null ? List.of() : attributes;
-		effects = effects == null ? List.of() : effects;
+		stats = stats == null ? List.of() : stats;
+		passive = passive == null ? List.of() : passive;
 		buildsFrom = buildsFrom == null ? List.of() : buildsFrom;
-		tips = tips == null ? List.of() : tips;
 	}
 
 }

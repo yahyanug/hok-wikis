@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="feedback-004-create-feedback-table" author="dev-yahya">
+        <createTable tableName="feedback">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_feedback"/>
+            </column>
+            <column name="feedback_type" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="detail" type="varchar(2000)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="page_url" type="varchar(2048)"/>
+            <column name="email" type="varchar(254)"/>
+            <column name="attachment_name" type="varchar(255)"/>
+            <column name="attachment_mime_type" type="varchar(32)"/>
+            <column name="attachment_size" type="integer"/>
+            <column name="attachment_data" type="bytea"/>
+            <column name="created_date" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(100)" defaultValue="sys-admin">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_modified_by" type="varchar(100)"/>
+        </createTable>
+        <sql>
+            ALTER TABLE feedback ADD CONSTRAINT chk_feedback_type
+                CHECK (feedback_type IN ('SUGGESTION', 'BUG_REPORT', 'CONTENT_REPORT'));
+            ALTER TABLE feedback ADD CONSTRAINT chk_feedback_attachment
+                CHECK (
+                    (attachment_name IS NULL AND attachment_mime_type IS NULL
+                        AND attachment_size IS NULL AND attachment_data IS NULL)
+                    OR (attachment_name IS NOT NULL AND attachment_mime_type IS NOT NULL
+                        AND attachment_size IS NOT NULL AND attachment_data IS NOT NULL
+                        AND attachment_mime_type IN ('image/png', 'image/jpeg')
+                        AND attachment_size BETWEEN 1 AND 5242880
+                        AND octet_length(attachment_data) = attachment_size)
+                );
+        </sql>
+        <rollback>
+            <dropTable tableName="feedback"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

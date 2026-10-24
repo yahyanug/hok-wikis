@@ -1,25 +1,25 @@
 package com.hok_wiki.service;
 
-import java.util.UUID;
-
 import com.hok_wiki.dto.request.ItemRequest;
-
 import com.hok_wiki.dto.response.ItemView;
-import com.hok_wiki.dto.request.PageRequest;
-import com.hok_wiki.dto.response.PageView;
+import com.hok_wiki.dto.response.CatalogItemView;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+import java.util.UUID;
 
 public interface ItemService {
 
-	PageView<ItemView> findAll(PageRequest request);
+    List<CatalogItemView> findAll(Pageable pageable);
 
-	ItemView findBySlug(String slug);
+    ItemView findBySlug(String slug);
 
-	ItemView findById(UUID id);
+    ItemView findById(UUID id);
 
-	ItemView create(ItemRequest request);
+    ItemView create(ItemRequest request);
 
-	ItemView update(UUID id, ItemRequest request);
+    ItemView update(UUID id, ItemRequest request);
 
-	void delete(UUID id);
+    void delete(UUID id);
 
 }

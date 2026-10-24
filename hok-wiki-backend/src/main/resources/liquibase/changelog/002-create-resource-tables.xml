@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="catalog-002-create-resource-tables" author="dev-yahya">
+        <createTable tableName="item">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_item"/>
+            </column>
+            <column name="category" type="varchar(32)"/>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="varchar(128)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_item_slug"/>
+            </column>
+            <column name="price_gold" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_url" type="text"/>
+            <column name="stats" type="jsonb" defaultValueComputed="'[]'::jsonb">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passive" type="jsonb" defaultValueComputed="'[]'::jsonb">
+                <constraints nullable="false"/>
+            </column>
+            <column name="builds_from" type="jsonb" defaultValueComputed="'[]'::jsonb">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(100)" defaultValue="sys-admin">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_modified_by" type="varchar(100)"/>
+        </createTable>
+        <createIndex tableName="item" indexName="idx_item_name_slug">
+            <column name="name"/>
+            <column name="slug"/>
+        </createIndex>
+
+        <createTable tableName="arcana">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_arcana"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="varchar(128)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_arcana_slug"/>
+            </column>
+            <column name="stats" type="jsonb" defaultValueComputed="'[]'::jsonb">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_url" type="text"/>
+            <column name="created_date" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(100)" defaultValue="sys-admin">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_modified_by" type="varchar(100)"/>
+        </createTable>
+        <createIndex tableName="arcana" indexName="idx_arcana_name_slug">
+            <column name="name"/>
+            <column name="slug"/>
+        </createIndex>
+
+        <createTable tableName="spells">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_spells"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="varchar(128)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_spells_slug"/>
+            </column>
+            <column name="description" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image_url" type="text"/>
+            <column name="usage_tip" type="text" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(100)" defaultValue="sys-admin">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_date" type="timestamptz" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="last_modified_by" type="varchar(100)"/>
+        </createTable>
+        <createIndex tableName="spells" indexName="idx_spells_name_slug">
+            <column name="name"/>
+            <column name="slug"/>
+        </createIndex>
+
+        <sql>
+            ALTER TABLE item ADD CONSTRAINT chk_item_category
+                CHECK (category IN ('ATTACK', 'MAGIC', 'DEFENSE', 'MOVEMENT', 'JUNGLING', 'ROAMING'));
+            ALTER TABLE item ADD CONSTRAINT chk_item_content_arrays
+                CHECK (jsonb_typeof(stats) = 'array' AND jsonb_typeof(passive) = 'array'
+                    AND jsonb_typeof(builds_from) = 'array');
+            ALTER TABLE arcana ADD CONSTRAINT chk_arcana_stats_array
+                CHECK (jsonb_typeof(stats) = 'array');
+        </sql>
+
+        <rollback>
+            <dropTable tableName="spells"/>
+            <dropTable tableName="arcana"/>
+            <dropTable tableName="item"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

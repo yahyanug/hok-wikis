@@ -104,7 +104,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		account.setPasswordHash(passwordEncoder.encode(request.password()));
 		account.setUserType(UserType.USER);
 		account.setEnabled(true);
-		account.setCreatedAt(Instant.now());
+		account.setCreatedDate(Instant.now());
 		return mapStructConverter.toView(userAccountRepository.saveAndFlush(account));
 	}
 
@@ -216,7 +216,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		UserToken token = new UserToken();
 		token.setAccount(account);
 		token.setRefreshTokenHash(tokenProvider.hashToken(rawRefreshToken));
-		token.setCreatedAt(now);
+		token.setCreatedDate(now);
 		token.setAccessExpiresAt(now.plusSeconds(properties.getTokenValidityInSeconds()));
 		token.setRefreshExpiresAt(now.plusSeconds(refreshValidity));
 		token.setRememberMe(rememberMe);

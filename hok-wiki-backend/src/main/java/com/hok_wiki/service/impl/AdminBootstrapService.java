@@ -53,7 +53,7 @@ public class AdminBootstrapService {
 		account.setPasswordHash(passwordEncoder.encode(password));
 		account.setUserType(UserType.SUPER_USER);
 		account.setEnabled(true);
-		account.setCreatedAt(Instant.now());
+		account.setCreatedDate(Instant.now());
 		userAccountRepository.saveAndFlush(account);
 	}
 

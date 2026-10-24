@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-	<preConditions onFail="HALT" onError="HALT">
-		<dbms type="postgresql"/>
-	</preConditions>
+    <preConditions onFail="HALT" onError="HALT">
+        <dbms type="postgresql"/>
+    </preConditions>
+    <include file="changelog/001-create-hero-tables.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/002-create-resource-tables.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/003-create-identity-tables.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/004-create-feedback-table.xml" relativeToChangelogFile="true"/>
+    <include file="changelog/005-load-datasets.xml" relativeToChangelogFile="true"/>
 
-	<!-- Superseded catalog changelogs remain on disk for history; they reference retired UUID datasets. -->
-	<include file="changelog/005-hero_create_identity_tables_19102026.xml" relativeToChangelogFile="true"/>
-	<include file="changelog/008-hero_current_catalog_schema_19102026.xml" relativeToChangelogFile="true"/>
-	<include file="changelog/009-hero_align_hero_classification_schema_19102026.xml" relativeToChangelogFile="true"/>
-	<include file="changelog/010-hero_add_catalog_content_19102026.xml" relativeToChangelogFile="true"/>
-	<include file="changelog/011-hero_align_frontend_resource_data_19102026.xml" relativeToChangelogFile="true"/>
-	<include file="changelog/012-hero_create_feedback_table_19102026.xml" relativeToChangelogFile="true"/>
-	<!-- Initial datasets are optional and include the current frontend metadata after loading. -->
-	<include file="changelog/013-hero_load_frontend_datasets_19102026.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -22,11 +22,13 @@ type CatalogSelection<T> = {
 
 type ResourceCatalogPanelProps<T extends CatalogRecord> = {
   detailLabel: string;
+  showHeaderDescription?: boolean;
+  showHeaderSeparator?: boolean;
   children: (selection: CatalogSelection<T>) => ReactNode;
   renderDetails: (record: T) => ReactNode;
 };
 
-export function ResourceCatalogPanel<T extends CatalogRecord>({ detailLabel, children, renderDetails }: ResourceCatalogPanelProps<T>) {
+export function ResourceCatalogPanel<T extends CatalogRecord>({ detailLabel, showHeaderDescription = true, showHeaderSeparator = true, children, renderDetails }: ResourceCatalogPanelProps<T>) {
   const [selected, setSelected] = useState<T | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const panelId = useId();
@@ -60,7 +62,7 @@ export function ResourceCatalogPanel<T extends CatalogRecord>({ detailLabel, chi
           {children({ selectedId: isOpen ? selected?.id ?? null : null, isOpen, panelId, gridClassName: catalogGridClassName, select })}
         </div>
 
-        <Dialog.Content ref={panelRef} id={panelId} className="relative row-start-1 flex min-w-0 max-h-[min(75dvh,44rem)] scroll-mt-4 flex-col overflow-hidden rounded-2xl border border-primary/40 bg-card text-card-foreground shadow-[var(--hok-panel-shadow)] outline-none duration-200 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-right-4 motion-reduce:animate-none xl:sticky xl:top-4 xl:col-start-2 xl:max-h-[calc(100dvh-2rem)]" onInteractOutside={(event) => event.preventDefault()} onCloseAutoFocus={(event) => {
+        <Dialog.Content ref={panelRef} id={panelId} aria-describedby={showHeaderDescription ? `${panelId}-description` : undefined} className="relative row-start-1 flex min-w-0 max-h-[min(75dvh,44rem)] scroll-mt-4 flex-col overflow-hidden rounded-2xl border border-primary/40 bg-card text-card-foreground shadow-[var(--hok-panel-shadow)] outline-none duration-200 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-right-4 motion-reduce:animate-none xl:sticky xl:top-4 xl:col-start-2 xl:max-h-[calc(100dvh-2rem)]" onInteractOutside={(event) => event.preventDefault()} onCloseAutoFocus={(event) => {
           event.preventDefault();
           const activeElement = document.activeElement;
           if (restoreFocusRef.current && (activeElement === document.body || panelRef.current?.contains(activeElement)) && openerRef.current?.isConnected) {
@@ -69,10 +71,12 @@ export function ResourceCatalogPanel<T extends CatalogRecord>({ detailLabel, chi
         }}>
           {selected && (
             <>
-              <div className="relative min-w-0 shrink-0 border-b border-primary/25 p-5 pr-16">
+              <div className={`relative min-w-0 shrink-0 p-5 pr-16 ${showHeaderSeparator ? "border-b border-primary/25" : ""}`}>
                 <p className="mb-2 text-xs font-semibold tracking-[0.15em] text-primary uppercase">{detailLabel}</p>
                 <Dialog.Title className="font-serif text-3xl font-bold leading-tight break-words text-foreground">{selected.name}</Dialog.Title>
-                <Dialog.Description className="mt-3 text-sm leading-7 break-words text-muted-foreground">{selected.description}</Dialog.Description>
+                {showHeaderDescription && (
+                  <Dialog.Description id={`${panelId}-description`} className="mt-3 text-sm leading-7 break-words text-muted-foreground">{selected.description}</Dialog.Description>
+                )}
                 <Dialog.Close aria-label={`Tutup ${detailLabel.toLowerCase()}`} className="absolute top-4 right-4 inline-flex size-9 items-center justify-center rounded-full border border-primary/30 bg-background/60 text-foreground transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none">
                   <X aria-hidden="true" className="size-4" />
                 </Dialog.Close>

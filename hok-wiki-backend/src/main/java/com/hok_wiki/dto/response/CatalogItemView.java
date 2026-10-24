@@ -5,14 +5,12 @@ import java.util.UUID;
 
 import com.hok_wiki.constant.ItemCategory;
 
-public record CatalogItemView(UUID id, String slug, String name, String image, String description,
-		List<ResourceAttributeView> attributes, List<String> tips, ItemCategory category, Integer price,
-		List<ResourceEffectView> effects, List<String> buildsFrom) {
+public record CatalogItemView(UUID id, String slug, String name, String image, ItemCategory category, Integer price,
+		List<ResourceEffectView> stats, List<ResourceEffectView> passive, List<String> buildsFrom) {
 
 	public CatalogItemView {
-		attributes = List.copyOf(attributes);
-		tips = List.copyOf(tips);
-		effects = List.copyOf(effects);
+		stats = List.copyOf(stats);
+		passive = List.copyOf(passive);
 		buildsFrom = List.copyOf(buildsFrom);
 	}
 

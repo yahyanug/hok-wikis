@@ -1,28 +1,28 @@
-id;name;slug;color;level;stats;image_url
-532e0294-3604-5d29-a681-6595b9a05617;Calamity;calamity;RED;5;Critical Rate +1.6%;/images/arcana/calamity.png
-2d7ce1b7-7668-5862-913e-8ba8a7bce04b;Conflict;conflict;RED;5;"Physical Attack +2.5; Physical Lifesteal +0.5%";/images/arcana/conflict.png
-f5c0428c-0f9b-573f-96b0-9ed450a8ecae;Fate;fate;RED;5;"Attack Speed +1%; Max Health +33.7; Physical Defense +2.3";/images/arcana/fate.png
-fdf321a0-4ea8-5eb6-981d-bfb7873bab27;Inheritance;inheritance;RED;5;Physical Attack +3.2;/images/arcana/inheritance.png
-1a3c63a0-483d-50e6-91e5-09c2f3ed48f1;Mutation;mutation;RED;5;"Physical Attack +2; Physical Pierce +3.6";/images/arcana/mutation.png
-41abddeb-eedd-5a84-b015-ddb649bddb48;Nightmare;nightmare;RED;5;"Magical Attack +4.2; Magical Pierce +2.4";/images/arcana/nightmare.png
-66a7333b-3160-5afa-927d-2556e01eab4f;Omen;omen;RED;5;"Magical Attack +4.2; Attack Speed +0.6%";/images/arcana/omen.png
-b87d12d0-f24a-5de3-a3d2-853a9ab1977b;Red Moon;red-moon;RED;5;"Attack Speed +1.6%; Critical Rate +0.5%";/images/arcana/red-moon.png
-e04643be-8ca4-5355-bcca-c869c32fb5d5;Saint;saint;RED;5;Magical Attack +5.3;/images/arcana/saint.png
-5aa5a544-1641-5424-9e73-b00cdc960457;Unparalleled;unparalleled;RED;5;"Critical Rate +0.7%; Critical Damage +3.6%";/images/arcana/unparalleled.png
-ceeec269-d813-57b3-aced-3e70c70d647d;Avarice;avarice;GREEN;5;Magical Lifesteal +1.6%;/images/arcana/avarice.png
-0683c438-1fde-51f5-b6a0-659b60543785;Beast Scar;beast-scar;GREEN;5;"Critical Rate +0.5%; Max Health +60";/images/arcana/beast-scar.png
-c834d7e7-dcb4-5fc7-8539-283b4aa9c587;Harmony;harmony;GREEN;5;"Max Health +45; Health Recovery +5.2; Movement Speed +0.4%";/images/arcana/harmony.png
-b404a5b5-9a4f-5d12-80f9-04e0fcdaf678;Hunt;hunt;GREEN;5;"Attack Speed +1%; Movement Speed +1%";/images/arcana/hunt.png
-3262a69c-d188-560d-9a8f-d471b78fb8be;Longevity;longevity;GREEN;5;Max Health +75;/images/arcana/longevity.png
-539cb0d7-fb71-5692-b902-9ff36831ee73;Meditation;meditation;GREEN;5;"Max Health +60; Health Recovery +4.5";/images/arcana/meditation.png
-c4a70fcc-92cb-5a5e-a1b7-1c638a9ef55e;Prosperity;prosperity;GREEN;5;"Physical Lifesteal +1%; Magical Defense +4.1";/images/arcana/prosperity.png
-01d9aa8d-59a4-5108-b078-bfb4541f21c7;Reaver;reaver;GREEN;5;Physical Lifesteal +1.6%;/images/arcana/reaver.png
-1f41e6d3-f7b8-56a7-99a1-22d6c5645482;Reincarnation;reincarnation;GREEN;5;"Magical Attack +2.4; Magical Lifesteal +1%";/images/arcana/reincarnation.png
-8cccaf8c-f0d4-5a18-a008-41f7cbd344a5;Stealth;stealth;GREEN;5;"Physical Attack +1.6; Movement Speed +1%";/images/arcana/stealth.png
-17f094a3-88bf-5ce2-a1c5-9f1baaa49118;Compassion;compassion;BLUE;5;Cooldown Reduction +1%;/images/arcana/compassion.png
-10735345-a3f8-5e6f-9aeb-b177c60acea1;Eagle Eye;eagle-eye;BLUE;5;"Physical Attack +0.9; Physical Pierce +6.4";/images/arcana/eagle-eye.png
-87cf20a6-5943-5108-bcaa-e5af8f3474a2;Fortify;fortify;BLUE;5;"Physical Defense +5; Magical Defense +5";/images/arcana/fortify.png
-297c6375-8643-5136-844d-8fdbc678553d;Mind's Eye;minds-eye;BLUE;5;"Attack Speed +0.6%; Magical Pierce +6.4";/images/arcana/minds-eye.png
-52dc45c6-b3ef-5fe6-9ad6-91c35a528bcb;Reverberation;reverberation;BLUE;5;"Physical Defense +2.7; Magical Defense +2.7; Cooldown Reduction +0.6%";/images/arcana/reverberation.png
-c3f2fb9a-d5e1-5774-bd26-a588a4504c20;Tribute;tribute;BLUE;5;"Magical Attack +2.4; Cooldown Reduction +0.7%";/images/arcana/tribute.png
-6f7e295e-fa25-5f4c-979d-18960dc83d76;Void;void;BLUE;5;"Max Health +37.5; Cooldown Reduction +0.6%";/images/arcana/void.png
+"id";"name";"slug";"stats";"image_url"
+"532e0294-3604-5d29-a681-6595b9a05617";"Calamity";"calamity";"[{""name"":""Critical Rate"",""description"":""+1.6%""}]";"/images/arcana/calamity.png"
+"2d7ce1b7-7668-5862-913e-8ba8a7bce04b";"Conflict";"conflict";"[{""name"":""Physical Attack"",""description"":""+2.5""},{""name"":""Physical Lifesteal"",""description"":""+0.5%""}]";"/images/arcana/conflict.png"
+"f5c0428c-0f9b-573f-96b0-9ed450a8ecae";"Fate";"fate";"[{""name"":""Attack Speed"",""description"":""+1%""},{""name"":""Max Health"",""description"":""+33.7""},{""name"":""Physical Defense"",""description"":""+2.3""}]";"/images/arcana/fate.png"
+"fdf321a0-4ea8-5eb6-981d-bfb7873bab27";"Inheritance";"inheritance";"[{""name"":""Physical Attack"",""description"":""+3.2""}]";"/images/arcana/inheritance.png"
+"1a3c63a0-483d-50e6-91e5-09c2f3ed48f1";"Mutation";"mutation";"[{""name"":""Physical Attack"",""description"":""+2""},{""name"":""Physical Pierce"",""description"":""+3.6""}]";"/images/arcana/mutation.png"
+"41abddeb-eedd-5a84-b015-ddb649bddb48";"Nightmare";"nightmare";"[{""name"":""Magical Attack"",""description"":""+4.2""},{""name"":""Magical Pierce"",""description"":""+2.4""}]";"/images/arcana/nightmare.png"
+"66a7333b-3160-5afa-927d-2556e01eab4f";"Omen";"omen";"[{""name"":""Magical Attack"",""description"":""+4.2""},{""name"":""Attack Speed"",""description"":""+0.6%""}]";"/images/arcana/omen.png"
+"b87d12d0-f24a-5de3-a3d2-853a9ab1977b";"Red Moon";"red-moon";"[{""name"":""Attack Speed"",""description"":""+1.6%""},{""name"":""Critical Rate"",""description"":""+0.5%""}]";"/images/arcana/red-moon.png"
+"e04643be-8ca4-5355-bcca-c869c32fb5d5";"Saint";"saint";"[{""name"":""Magical Attack"",""description"":""+5.3""}]";"/images/arcana/saint.png"
+"5aa5a544-1641-5424-9e73-b00cdc960457";"Unparalleled";"unparalleled";"[{""name"":""Critical Rate"",""description"":""+0.7%""},{""name"":""Critical Damage"",""description"":""+3.6%""}]";"/images/arcana/unparalleled.png"
+"ceeec269-d813-57b3-aced-3e70c70d647d";"Avarice";"avarice";"[{""name"":""Magical Lifesteal"",""description"":""+1.6%""}]";"/images/arcana/avarice.png"
+"0683c438-1fde-51f5-b6a0-659b60543785";"Beast Scar";"beast-scar";"[{""name"":""Critical Rate"",""description"":""+0.5%""},{""name"":""Max Health"",""description"":""+60""}]";"/images/arcana/beast-scar.png"
+"c834d7e7-dcb4-5fc7-8539-283b4aa9c587";"Harmony";"harmony";"[{""name"":""Max Health"",""description"":""+45""},{""name"":""Health Recovery"",""description"":""+5.2""},{""name"":""Movement Speed"",""description"":""+0.4%""}]";"/images/arcana/harmony.png"
+"b404a5b5-9a4f-5d12-80f9-04e0fcdaf678";"Hunt";"hunt";"[{""name"":""Attack Speed"",""description"":""+1%""},{""name"":""Movement Speed"",""description"":""+1%""}]";"/images/arcana/hunt.png"
+"3262a69c-d188-560d-9a8f-d471b78fb8be";"Longevity";"longevity";"[{""name"":""Max Health"",""description"":""+75""}]";"/images/arcana/longevity.png"
+"539cb0d7-fb71-5692-b902-9ff36831ee73";"Meditation";"meditation";"[{""name"":""Max Health"",""description"":""+60""},{""name"":""Health Recovery"",""description"":""+4.5""}]";"/images/arcana/meditation.png"
+"c4a70fcc-92cb-5a5e-a1b7-1c638a9ef55e";"Prosperity";"prosperity";"[{""name"":""Physical Lifesteal"",""description"":""+1%""},{""name"":""Magical Defense"",""description"":""+4.1""}]";"/images/arcana/prosperity.png"
+"01d9aa8d-59a4-5108-b078-bfb4541f21c7";"Reaver";"reaver";"[{""name"":""Physical Lifesteal"",""description"":""+1.6%""}]";"/images/arcana/reaver.png"
+"1f41e6d3-f7b8-56a7-99a1-22d6c5645482";"Reincarnation";"reincarnation";"[{""name"":""Magical Attack"",""description"":""+2.4""},{""name"":""Magical Lifesteal"",""description"":""+1%""}]";"/images/arcana/reincarnation.png"
+"8cccaf8c-f0d4-5a18-a008-41f7cbd344a5";"Stealth";"stealth";"[{""name"":""Physical Attack"",""description"":""+1.6""},{""name"":""Movement Speed"",""description"":""+1%""}]";"/images/arcana/stealth.png"
+"17f094a3-88bf-5ce2-a1c5-9f1baaa49118";"Compassion";"compassion";"[{""name"":""Cooldown Reduction"",""description"":""+1%""}]";"/images/arcana/compassion.png"
+"10735345-a3f8-5e6f-9aeb-b177c60acea1";"Eagle Eye";"eagle-eye";"[{""name"":""Physical Attack"",""description"":""+0.9""},{""name"":""Physical Pierce"",""description"":""+6.4""}]";"/images/arcana/eagle-eye.png"
+"87cf20a6-5943-5108-bcaa-e5af8f3474a2";"Fortify";"fortify";"[{""name"":""Physical Defense"",""description"":""+5""},{""name"":""Magical Defense"",""description"":""+5""}]";"/images/arcana/fortify.png"
+"297c6375-8643-5136-844d-8fdbc678553d";"Mind's Eye";"minds-eye";"[{""name"":""Attack Speed"",""description"":""+0.6%""},{""name"":""Magical Pierce"",""description"":""+6.4""}]";"/images/arcana/mind-s-eye.png"
+"52dc45c6-b3ef-5fe6-9ad6-91c35a528bcb";"Reverberation";"reverberation";"[{""name"":""Physical Defense"",""description"":""+2.7""},{""name"":""Magical Defense"",""description"":""+2.7""},{""name"":""Cooldown Reduction"",""description"":""+0.6%""}]";"/images/arcana/reverberation.png"
+"c3f2fb9a-d5e1-5774-bd26-a588a4504c20";"Tribute";"tribute";"[{""name"":""Magical Attack"",""description"":""+2.4""},{""name"":""Cooldown Reduction"",""description"":""+0.7%""}]";"/images/arcana/tribute.png"
+"6f7e295e-fa25-5f4c-979d-18960dc83d76";"Void";"void";"[{""name"":""Max Health"",""description"":""+37.5""},{""name"":""Cooldown Reduction"",""description"":""+0.6%""}]";"/images/arcana/void.png"

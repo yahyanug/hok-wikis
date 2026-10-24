@@ -50,7 +50,7 @@ public class TokenProvider {
 	public String createAccessToken(UserToken token) {
 		return Jwts.builder().subject(token.getAccount().getId().toString())
 				.claim("tokenId", token.getId().toString()).issuer(authProperties.getIssuer())
-				.issuedAt(Date.from(token.getCreatedAt())).expiration(Date.from(token.getAccessExpiresAt()))
+				.issuedAt(Date.from(token.getCreatedDate())).expiration(Date.from(token.getAccessExpiresAt()))
 				.signWith(key, Jwts.SIG.HS512).compact();
 	}
 

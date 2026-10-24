@@ -1,25 +1,25 @@
 package com.hok_wiki.service;
 
-import java.util.UUID;
-
 import com.hok_wiki.dto.request.SpellRequest;
-
+import com.hok_wiki.dto.response.CatalogSpellView;
 import com.hok_wiki.dto.response.SpellView;
-import com.hok_wiki.dto.request.PageRequest;
-import com.hok_wiki.dto.response.PageView;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+import java.util.UUID;
 
 public interface SpellService {
 
-	PageView<SpellView> findAll(PageRequest request);
+    List<CatalogSpellView> findAll(Pageable pageable);
 
-	SpellView findBySlug(String slug);
+    SpellView findBySlug(String slug);
 
-	SpellView findById(UUID id);
+    SpellView findById(UUID id);
 
-	SpellView create(SpellRequest request);
+    SpellView create(SpellRequest request);
 
-	SpellView update(UUID id, SpellRequest request);
+    SpellView update(UUID id, SpellRequest request);
 
-	void delete(UUID id);
+    void delete(UUID id);
 
 }
